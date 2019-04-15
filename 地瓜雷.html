@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>地瓜雷</title>
+    <style>
+        input {
+            width: 40px;
+        }
+        
+        .nav {
+            width: 450px;
+            margin: 10px auto 0;
+        }
+        
+        .showlei {
+            width: 450px;
+            margin: 10px auto 0;
+        }
+        
+        .showlei span {
+            width: 222px;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        button {
+            border: 0px;
+            width: 45px;
+            height: 25px;
+            background: rgb(9, 132, 227);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        行数：<input type="text" value=10> 列数：
+        <input type="text" value=10> 雷数：
+        <input type="text" value=10> 大小：
+        <input type="text" value=30>
+        <button>开始</button>
+    </div>
+    <div class="showlei">
+        <span>雷数：28</span>
+        <span>时间：23</span>
+    </div>
+    <div class='lei'></div>
+
+
+    <script>
+        // 测试用的
+        var log = function() {
+            console.log.apply(console, arguments);
+        }
+
+        var clear = function() {
+            var child = document.querySelector('.lei');
+            var parent = child.parentNode;
+            parent.removeChild(child);
+            var t = `
+            <div class = 'lei'></div>
+        `;
+            parent.insertAdjacentHTML('beforeend', t);
+
+        }
+
+        // 添加css
+        var addCss = function() {
+            var sty = document.querySelector('style');
+            var cell = `
+        .cell {
+            width: ${tableWidth}px;
+            height: ${tableWidth}px;
+            background: rgb(9, 132, 227);
+            border: 1px solid black;
+            position: absolute;
+        }
+        `
+            sty.insertAdjacentHTML('beforeend', cell);
+            var show = `
+        .show {
+            width: ${tableWidth}px;
+            height: ${tableWidth}px;
+            background: rgb(52, 73, 94);
+            border: 1px solid black;
+            position: absolute;    
+            line-height: ${tableWidth}px;
+            transition: 400ms ease-in-out;
+            text-align: center;
+        }
+        `
+            sty.insertAdjacentHTML('beforeend', show);
+            var lei = `
+        .lei {
+            position: relative;
+            left: 50%;
+            top: 30px;
+            width: ${tableWidth * y}px;
+            height: ${tableWidth * x}px;
+            background: red;
+            transform: translateX(-50%);
+        }
+        `;
+            sty.insertAdjacentHTML('beforeend', lei);
+
+        }
+
+        // 绘制界面
+        var page = function() {
+            var table = document.querySelector('.lei');
+            for (let i = 0; i < x; i++) {
+                for (let j = 0; j < y; j++) {
+                    var t = `
+                <div style = "left: ${j * tableWidth}px; top: ${i * tableWidth}px;" class= 'cell'></div>
+                `;
+                    table.insertAdjacentHTML('beforeend', t);
+                }
+            }
+        }
+
+        // 产生随机数
+        var rangeLei = function(total) {
+            var range = Math.floor(Math.random() * total);
+            var leinum = [];
+            leinum[0] = Math.floor(range % x);
+            leinum[1] = Math.floor(range / x);
+            return leinum;
+        }
+
+        // 数组初始化
+        var arr = function() {
+            for (let i = 0; i < x; i++) {
+                boom[i] = [];
+                for (let j = 0; j < y; j++) {
+                    boom[i][j] = 0;
+
+                }
+            }
+        }
+
+        // 产生雷
+        var createLei = function() {
+            for (let i = 0; i < num; i++) {
+                var n = rangeLei(total);
+                while (boom[n[0]][n[1]] === 9) {
+                    n = rangeLei(total);
+                }
+                boom[n[0]][n[1]] = 9;
+            }
+        }
+
+        var plus1 = function(i, j) {
+            if (i < x && j < y && i >= 0 && j >= 0) {
+                if (boom[i][j] !== 9) {
+                    boom[i][j]++;
+                }
+            }
+        }
+
+        var plus = function() {
+            for (let i = 0; i < x; i++) {
+                for (let j = 0; j < y; j++) {
+                    if (boom[i][j] === 9) {
+                        plus1(i - 1, j - 1);
+                        plus1(i - 1, j);
+                        plus1(i - 1, j + 1);
+                        plus1(i, j - 1);
+                        plus1(i, j + 1);
+                        plus1(i + 1, j - 1);
+                        plus1(i + 1, j);
+                        plus1(i + 1, j + 1);
+                    }
+                }
+            }
+        }
+
+        var loadLei = function() {
+            arr();
+            createLei();
+            plus();
+        }
+
+        var lost = function(cells) {
+            // for (let i = 0; i < cells.length; i++) {
+            //     var x1 = parseInt(i % x);
+            //     var y1 = parseInt(i / x);
+            //     if (boom[x1][y1] === 9) {
+            //         cells[i].innerHTML = '雷';
+            //         log('lost')
+            //     }
+
+            // }
+            alert('lost');
+        }
+
+        var show = function(cells, i, j) {
+            cells[i][j].classList.add('show');
+            cells[i][j].classList.remove('cell');
+            if (boom[i][j] > 0) {
+                cells[i][j].innerHTML = boom[i][j];
+            }
+        }
+
+        var find = function(cells, i, j) {
+            if (i < x && j < y && i >= 0 && j >= 0 && cells[i][j].classList.contains('cell') && cells[i][j].isClick) {
+                show(cells, i, j);
+                numLeft--;
+                if (boom[i][j] == 0) {
+                    find(cells, i - 1, j - 1);
+                    find(cells, i - 1, j);
+                    find(cells, i - 1, j + 1);
+                    find(cells, i, j - 1);
+                    find(cells, i, j + 1);
+                    find(cells, i + 1, j - 1);
+                    find(cells, i + 1, j);
+                    find(cells, i + 1, j + 1);
+                }
+            }
+        }
+
+        var win = function(cell, x, y) {
+            alert('win');
+        }
+
+
+
+        var clickLei = function() {
+            var line = document.querySelectorAll('.cell');
+            var cells = [];
+            for (let i = 0; i < x; i++) {
+                cells[i] = [];
+            }
+            for (let i = 0; i < line.length; i++) {
+                line[i].isClick = true;
+                var x1 = Math.floor(i / y);
+                var y1 = Math.floor(i % y);
+                cells[x1][y1] = line[i];
+            }
+            for (let i = 0; i < x; i++) {
+                for (let j = 0; j < y; j++) {
+                    var mm = cells[i][j];
+                    mm.oncontextmenu = function(ev) {
+                        var ev = ev || event;
+                        ev.preventDefault();
+                        if (this.isClick) {
+                            this.style.backgroundColor = 'rgb(214, 48, 49)';
+                            this.isClick = false;
+                            markLei++;
+                        } else {
+                            this.style.backgroundColor = '';
+                            this.isClick = true;
+                            markLei--;
+                        }
+
+                    }
+                    mm.onclick = function() {
+                        if (this.isClick) {
+                            if (boom[i][j] === 9) {
+                                this.innerHTML = '雷';
+                                var ce = i
+                                var ui = j
+                                lost(cells);
+                            } else {
+                                find(cells, i, j)
+                            }
+                            if (numLeft === 0) {
+                                win()
+                            }
+                        }
+                    }
+
+                }
+
+
+            }
+        }
+
+        // 界面初始化
+        var _init = function() {
+            clear();
+            addCss();
+            page();
+
+            loadLei();
+            clickLei();
+        }
+
+
+        var _main = function(a = 10, b = 10, c = 10, d = 30) {
+            x = a;
+            y = b;
+            num = c;
+            tableWidth = d;
+            numLeft = x * y - num;
+            total = x * y;
+            markLei = 0;
+            boom = [];
+            _init();
+        }
+
+
+        var button = document.querySelector('button');
+        button.onclick = function() {
+            var inputs = document.querySelectorAll('input');
+            for (let i = 0; i < inputs.length; i++) {
+                const element = inputs[i];
+                element.value = parseInt(element.value);
+            }
+            _main(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value, );
+        }
+
+        var num, x, y, tableWidth, numLeft, total, markLei, boom;
+
+        _main();
+    </script>
+</body>
+
+</html>
