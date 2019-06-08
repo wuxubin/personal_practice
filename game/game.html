@@ -31,27 +31,39 @@
                 y: 200,
                 speed: 5,
             }
+            o.moveLeft = function () {
+                o.x -= o.speed
+            }
+            o.moveRight = function () {
+                o.x += o.speed
+            }
             return o
         }
 
 
+        var Guagame = function () {
+            var g = {}
+            var canvas = document.querySelector("#id-canvas")
+            var context = canvas.getContext('2d')
+            g.canvas = canvas
+            g.context = context
 
+            setInterval(() => {              
+                g.update()
+                context.clearRect(0, 0, canvas.width, canvas.height)
+                g.draw()
+            }, 1000 / 30);
+            return g
+        }
 
 
         var _main = function () {
             var paddle = Paddle();
+            var game = Guagame();
 
-            var canvas = document.querySelector("#id-canvas")
-            var context = canvas.getContext('2d')
-
-            var x = 100
-            var y = 200
-            var speed = 5
-            var img = new Image()
-            img.src = 'paddle.png'
-            img.onload = function () {
-                context.drawImage(paddle.image, paddle.x, paddle.y)
-            }
+            // img.onload = function () {
+            //     context.drawImage(paddle.image, paddle.x, paddle.y)
+            // }
 
             var leftDown = false
             var rightDown = false
@@ -72,17 +84,17 @@
                     rightDown = false
                 }
             })
-
-            setInterval(() => {
+            game.update = function () {
                 if (leftDown) {
-                    paddle.x -= paddle.speed
+                    paddle.moveLeft()
                 }
                 if (rightDown) {
-                    paddle.x += paddle.speed
+                    paddle.moveRight()
                 }
-                context.clearRect(0, 0, canvas.width, canvas.height)
-                context.drawImage(paddle.image, paddle.x, paddle.y)
-            }, 1000 / 30);
+            }
+            game.draw = function() {
+                game.context.drawImage(paddle.image, paddle.x, paddle.y)
+            }
         }
 
         _main()
