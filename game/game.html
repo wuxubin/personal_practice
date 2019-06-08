@@ -28,7 +28,7 @@
             var o = {
                 image: image,
                 x: 100,
-                y: 200,
+                y: 250,
                 speed: 5,
             }
             o.moveLeft = function () {
@@ -37,63 +37,108 @@
             o.moveRight = function () {
                 o.x += o.speed
             }
+            o.collide = function (ball) {
+                if (ball.y + ball.image.height > o.y) {
+                    if (ball.x > o.x && ball.x < o.x + o.image.width) {
+                        return true
+                    }
+                }
+                return false
+            }
             return o
         }
 
+        var Ball = function () {
+            var image = imageFromPath('ball.png')
+            var o = {
+                image: image,
+                x: 100,
+                y: 200,
+                speedX: 10,
+                speedY: 10,
+                fired: false,
+            }
+            o.fire = function () {
+                o.fired = true
+            }
+            o.move = function () {
+                if (o.fired) {
+                    if (o.x < 0 || o.x > 400) {
+                        o.speedX = -o.speedX
+                    }
+                    if (o.y < 0 || o.y > 400) {
+                        o.speedY = -o.speedY
+                    }
+                    o.x += o.speedX
+                    o.y += o.speedY
+                }
+            }
+            return o
+        }
 
         var Guagame = function () {
-            var g = {}
+            var g = {
+                keydowns: {},
+                actions: {},
+            }
             var canvas = document.querySelector("#id-canvas")
             var context = canvas.getContext('2d')
             g.canvas = canvas
             g.context = context
 
-            setInterval(() => {              
+            window.addEventListener('keydown', function (event) {
+                g.keydowns[event.key] = true
+            })
+            window.addEventListener('keyup', function (event) {
+                g.keydowns[event.key] = false
+            })
+            g.registerAction = function (key, callback) {
+                g.actions[key] = callback
+            }
+            g.drawImage = function (guaImage) {
+                g.context.drawImage(guaImage.image, guaImage.x, guaImage.y)
+
+            }
+            setInterval(() => {
+                var actions = Object.keys(g.actions)
+                for (let i = 0; i < actions.length; i++) {
+                    const key = actions[i];
+                    if (g.keydowns[key]) {
+                        g.actions[key]()
+                    }
+                }
                 g.update()
                 context.clearRect(0, 0, canvas.width, canvas.height)
                 g.draw()
-            }, 1000 / 30);
+            }, 1000 / 30)
             return g
         }
 
 
         var _main = function () {
-            var paddle = Paddle();
-            var game = Guagame();
-
-            // img.onload = function () {
-            //     context.drawImage(paddle.image, paddle.x, paddle.y)
-            // }
-
-            var leftDown = false
-            var rightDown = false
-
-            window.addEventListener('keydown', function (event) {
-                var k = event.key;
-                if (k == 'a') {
-                    leftDown = true
-                } else if (k == 'd') {
-                    rightDown = true
-                }
+            var paddle = Paddle()
+            var game = Guagame()
+            var ball = Ball()
+            game.registerAction('a', function () {
+                paddle.moveLeft()
             })
-            window.addEventListener('keyup', function (event) {
-                var k = event.key;
-                if (k == 'a') {
-                    leftDown = false
-                } else if (k == 'd') {
-                    rightDown = false
-                }
+            game.registerAction('d', function () {
+                paddle.moveRight()
             })
+            game.registerAction('f', function () {
+                ball.fire()
+            })
+
             game.update = function () {
-                if (leftDown) {
-                    paddle.moveLeft()
-                }
-                if (rightDown) {
-                    paddle.moveRight()
+                ball.move()
+                if (paddle.collide(ball)) {
+                    ball.speedY *= -1
                 }
             }
-            game.draw = function() {
-                game.context.drawImage(paddle.image, paddle.x, paddle.y)
+
+            game.draw = function () {
+                game.drawImage(paddle)
+                game.drawImage(ball)
             }
         }
 
