@@ -1,7 +1,7 @@
 var Ball = function (game) {
     var o = game.imageByName('ball')
-    console.log('ball',o);
-    
+    console.log('ball', o);
+
     o.x = 100
     o.y = 200
     o.speedX = 5
@@ -24,6 +24,11 @@ var Ball = function (game) {
     }
     o.反弹 = function () {
         o.speedY *= -1
+    }
+    o.hasPoint = function (x, y) {
+        var xIn = x >= o.x && x <= o.x + o.w
+        var yIn = y >= o.y && y <= o.y + o.h
+        return xIn && yIn
     }
     return o
 }
