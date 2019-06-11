@@ -1,7 +1,8 @@
-var Guagame = function () {
+var Guagame = function (images, runCallBack) {
     var g = {
         keydowns: {},
         actions: {},
+        images: {},
     }
     var canvas = document.querySelector("#id-canvas")
     var context = canvas.getContext('2d')
@@ -43,11 +44,40 @@ var Guagame = function () {
             runloop()
         }, 1000 / window.fps)
     }
-
-
-    setTimeout(function () {
-        runloop()
-    }, 1000 / fps)
+    var loads = []
+    var names = Object.keys(images)
+    for (let i = 0; i < names.length; i++) {
+        const name = names[i];
+        let path = images[name]
+        let img = new Image()
+        img.src = path
+        img.onload = function () {
+            g.images[name] = img
+            loads.push(1)
+            if (loads.length == names.length) {
+                g.run()
+            }
+        }
+    }
+    g.imageByName = function (name) {
+        console.log(name,'name');
+        
+        var img = g.images[name]
+        console.log('img',img);
+        
+        var image = {
+            w: img.width,
+            h: img.height,
+            image: img,
+        }
+        return image
+    }
+    g.run = function () {
+        runCallBack(g)
+        setTimeout(function () {
+            runloop()
+        }, 1000 / fps)
+    }
     return g
 }
 
