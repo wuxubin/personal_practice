@@ -1,5 +1,6 @@
 var Guagame = function (images, runCallBack) {
     var g = {
+        scene: null,
         keydowns: {},
         actions: {},
         images: {},
@@ -21,6 +22,9 @@ var Guagame = function (images, runCallBack) {
     g.drawImage = function (guaImage) {
         g.context.drawImage(guaImage.image, guaImage.x, guaImage.y)
 
+    }
+    g.replaceScene = function (scene) {
+        g.scene = scene
     }
     window.fps = 30
     var runloop = function () {
@@ -60,11 +64,11 @@ var Guagame = function (images, runCallBack) {
         }
     }
     g.imageByName = function (name) {
-        console.log(name,'name');
-        
+        console.log(name, 'name');
+
         var img = g.images[name]
-        console.log('img',img);
-        
+        console.log('img', img);
+
         var image = {
             w: img.width,
             h: img.height,
@@ -72,11 +76,20 @@ var Guagame = function (images, runCallBack) {
         }
         return image
     }
-    g.run = function () {
-        runCallBack(g)
+    g.update = function () {
+        g.scene.update()
+    }
+    g.draw = function () {
+        g.scene.draw()
+    }
+    g.runWithScene = function (scene) {
+        g.scene = scene
         setTimeout(function () {
             runloop()
         }, 1000 / fps)
+    }
+    g.run = function (scene) {
+        runCallBack(g)
     }
     return g
 }
