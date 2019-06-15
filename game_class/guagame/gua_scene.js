@@ -5,7 +5,7 @@ class GuaScene {
     draw() {
 
     }
-    uodate() {
+    update() {
 
     }
 }

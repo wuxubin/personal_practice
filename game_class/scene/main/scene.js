@@ -1,81 +1,82 @@
-var Scene = function (game) {
-    var s = {
-        game: game,
+class Scene {
+    constructor(game) {
+        this.game = game
+        this.paddle = new Paddle(this.game)
+        this.ball = Ball(this.game)
+        this.score = 0
+        this.init()
     }
-    var paddle = Paddle(game)
-
-    var ball = Ball(game)
-    var score = 0
-    window.blocks = loadLevel(game, 2)
-    s.update = function () {
+    update() {
         if (window.paused) {
             return
         }
-        ball.move()
-        if (ball.y> paddle.y) {
-            var end=new SceneEnd(game)
-            game.replaceScene(end)
+        this.ball.move()
+        if (this.ball.y > this.paddle.y) {
+            var end = new SceneEnd(this.game)
+            this.game.replaceScene(end)
         }
-        if (paddle.collide(ball)) {
-            ball.speedY *= -1
+        if (this.paddle.collide(this.ball)) {
+            this.ball.speedY *= -1
         }
         for (let i = 0; i < blocks.length; i++) {
             const block = blocks[i];
-            if (block.collide(ball)) {
+            if (block.collide(this.ball)) {
                 block.kill()
-                ball.反弹()
-                score += 100
+                this.ball.反弹()
+                this.score += 100
             }
         }
     }
-    // mouse event
-    var enableDrag = false
-    game.canvas.addEventListener('mousedown', function (event) {
-        var x = event.offsetX
-        var y = event.offsetY
-        // 检查是否点中了 ball
-        if (ball.hasPoint(x, y)) {
-            // 设置拖拽状态
-            enableDrag = true
-        }
-    })
-    game.canvas.addEventListener('mousemove', function (event) {
-        var x = event.offsetX
-        var y = event.offsetY
-        // log(x, y, 'move')
-        if (enableDrag) {
-            ball.x = x
-            ball.y = y
-        }
-    })
-    game.canvas.addEventListener('mouseup', function (event) {
-        var x = event.offsetX
-        var y = event.offsetY
-        enableDrag = false
-    })
 
-    s.draw = function () {
-        game.context.fillStyle = '#555'
-        game.context.fillRect(0, 0, 400, 300)
-        game.drawImage(paddle)
-        game.drawImage(ball)
+    draw() {
+        this.game.context.fillStyle = '#555'
+        this.game.context.fillRect(0, 0, 400, 300)
+        this.game.drawImage(this.paddle)
+        this.game.drawImage(this.ball)
         for (let i = 0; i < blocks.length; i++) {
             const block = blocks[i];
             if (block.alive) {
-                game.drawImage(block)
+                this.game.drawImage(block)
             }
         }
-        game.context.fillStyle = '#999'
-        game.context.fillText('分数：' + score, 10, 290)
+        this.game.context.fillStyle = '#999'
+        this.game.context.fillText('分数：' + this.score, 10, 290)
     }
-    game.registerAction('a', function () {
-        paddle.moveLeft()
-    })
-    game.registerAction('d', function () {
-        paddle.moveRight()
-    })
-    game.registerAction('f', function () {
-        ball.fire()
-    })
-    return s
+
+    init() {
+        window.blocks = loadLevel(this.game, 2)
+        var enableDrag = false
+        this.game.canvas.addEventListener('mousedown', (event) => {
+            var x = event.offsetX
+            var y = event.offsetY
+            // 检查是否点中了 ball
+            if (this.ball.hasPoint(x, y)) {
+                // 设置拖拽状态
+                enableDrag = true
+            }
+        })
+        this.game.canvas.addEventListener('mousemove', (event) => {
+            var x = event.offsetX
+            var y = event.offsetY
+            // log(x, y, 'move')
+            if (enableDrag) {
+                this.ball.x = x
+                this.ball.y = y
+            }
+        })
+        this.game.canvas.addEventListener('mouseup', (event) => {
+            var x = event.offsetX
+            var y = event.offsetY
+            enableDrag = false
+        })
+        this.game.registerAction('a', () => {
+            this.paddle.moveLeft()
+        })
+        this.game.registerAction('d', () => {
+            this.paddle.moveRight()
+        })
+        this.game.registerAction('f', () => {
+            this.ball.fire()
+        })
+    }
 }
