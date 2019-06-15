@@ -1,6 +1,6 @@
-var Block = function (game, position) {
-    var p = position
-    var o = game.imageByName('block')
+let Block = function (game, position) {
+    let p = position
+    let o = game.imageByName('block')
     o.x = p[0]
     o.y = p[1]
     o.w = 50

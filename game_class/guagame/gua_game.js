@@ -19,9 +19,9 @@ class Guagame {
 
     runloop() {
         // events
-        var actions = Object.keys(this.actions)
-        for (var i = 0; i < actions.length; i++) {
-            var key = actions[i]
+        let actions = Object.keys(this.actions)
+        for (let i = 0; i < actions.length; i++) {
+            let key = actions[i]
             if (this.keydowns[key]) {
                 // 如果按键被按下, 调用注册的 action
                 this.actions[key]()
@@ -49,13 +49,13 @@ class Guagame {
         this.scene = scene
     }
     init() {
-        var g = this
-        var loads = []
+        let g = this
+        let loads = []
         // 预先载入所有图片
-        var names = Object.keys(g.images)
-        for (var i = 0; i < names.length; i++) {
+        let names = Object.keys(g.images)
+        for (let i = 0; i < names.length; i++) {
             let name = names[i]
-            var path = g.images[name]
+            let path = g.images[name]
             let img = new Image()
             img.src = path
             img.onload = function () {
@@ -70,8 +70,8 @@ class Guagame {
         }
     }
     // init() {
-    //     var loads = []
-    //     var names = Object.keys(this.images)
+    //     let loads = []
+    //     let names = Object.keys(this.images)
     //     for (let i = 0; i < names.length; i++) {
     //         const name = names[i];
     //         let path = this.images[name]
@@ -89,8 +89,8 @@ class Guagame {
 
     // }
     imageByName(name) {
-        var img = this.images[name]
-        var image = {
+        let img = this.images[name]
+        let image = {
             w: img.width,
             h: img.height,
             image: img,

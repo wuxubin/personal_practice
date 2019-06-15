@@ -2,7 +2,7 @@ class SceneEnd extends GuaScene {
     constructor(game) {
         super(game)
         game.registerAction('r', function () {
-            var s =new SceneTitle(game)
+            let s =new SceneTitle(game)
             game.replaceScene(s)
         })
     }

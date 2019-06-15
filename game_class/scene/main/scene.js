@@ -12,7 +12,7 @@ class Scene {
         }
         this.ball.move()
         if (this.ball.y > this.paddle.y) {
-            var end = new SceneEnd(this.game)
+            let end = new SceneEnd(this.game)
             this.game.replaceScene(end)
         }
         if (this.paddle.collide(this.ball)) {
@@ -45,10 +45,10 @@ class Scene {
 
     init() {
         window.blocks = loadLevel(this.game, 2)
-        var enableDrag = false
+        let enableDrag = false
         this.game.canvas.addEventListener('mousedown', (event) => {
-            var x = event.offsetX
-            var y = event.offsetY
+            let x = event.offsetX
+            let y = event.offsetY
             // 检查是否点中了 ball
             if (this.ball.hasPoint(x, y)) {
                 // 设置拖拽状态
@@ -56,8 +56,8 @@ class Scene {
             }
         })
         this.game.canvas.addEventListener('mousemove', (event) => {
-            var x = event.offsetX
-            var y = event.offsetY
+            let x = event.offsetX
+            let y = event.offsetY
             // log(x, y, 'move')
             if (enableDrag) {
                 this.ball.x = x
@@ -65,8 +65,8 @@ class Scene {
             }
         })
         this.game.canvas.addEventListener('mouseup', (event) => {
-            var x = event.offsetX
-            var y = event.offsetY
+            let x = event.offsetX
+            let y = event.offsetY
             enableDrag = false
         })
         this.game.registerAction('a', () => {

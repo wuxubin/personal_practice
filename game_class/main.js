@@ -1,22 +1,22 @@
-var loadLevel = function (game, n) {
-    var blocks = []
+let loadLevel = function (game, n) {
+    let blocks = []
     n = n - 1
-    var level = levels[n]
+    let level = levels[n]
     for (let i = 0; i < level.length; i++) {
-        var p = level[i]
-        var b = Block(game, p)
+        let p = level[i]
+        let b = Block(game, p)
         blocks.push(b)
     }
     return blocks
 }
 
-var enableDebugMode = function (game, enable) {
+let enableDebugMode = function (game, enable) {
     if (!enable) {
         return
     }
     window.paused = false
     window.addEventListener('keydown', function (event) {
-        var k = event.key
+        let k = event.key
         if (k == 'p') {
             // 暂停功能
             window.paused = !window.paused
@@ -27,21 +27,21 @@ var enableDebugMode = function (game, enable) {
         }
     })
     document.querySelector('#id-input-speed').addEventListener('input', function (event) {
-        var input = event.target
+        let input = event.target
         // log(event, input.value)
         window.fps = Number(input.value)
     })
 }
 
-var _main = function () {
-    var images = {
+let _main = function () {
+    let images = {
         ball: 'img/ball.png',
         block: 'img/block.png',
         paddle: 'img/paddle.png',
     }
     window.fps = 60
-    var game = new Guagame(images, function (g) {
-        var s =new SceneTitle(g)
+    let game = new Guagame(images, function (g) {
+        let s =new SceneTitle(g)
         g.runWithScene(s)
     })
     enableDebugMode(game, true)
