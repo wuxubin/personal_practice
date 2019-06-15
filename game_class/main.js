@@ -1,4 +1,4 @@
-let loadLevel = function (game, n) {
+let loadLevel = (game, n) => {
     let blocks = []
     n = n - 1
     let level = levels[n]
@@ -10,12 +10,12 @@ let loadLevel = function (game, n) {
     return blocks
 }
 
-let enableDebugMode = function (game, enable) {
+let enableDebugMode = (game, enable) => {
     if (!enable) {
         return
     }
     window.paused = false
-    window.addEventListener('keydown', function (event) {
+    window.addEventListener('keydown', (event) => {
         let k = event.key
         if (k == 'p') {
             // 暂停功能
@@ -26,22 +26,22 @@ let enableDebugMode = function (game, enable) {
 
         }
     })
-    document.querySelector('#id-input-speed').addEventListener('input', function (event) {
+    document.querySelector('#id-input-speed').addEventListener('input', (event) => {
         let input = event.target
         // log(event, input.value)
         window.fps = Number(input.value)
     })
 }
 
-let _main = function () {
+let _main = () => {
     let images = {
         ball: 'img/ball.png',
         block: 'img/block.png',
         paddle: 'img/paddle.png',
     }
     window.fps = 60
-    let game = new Guagame(images, function (g) {
-        let s =new SceneTitle(g)
+    let game = new Guagame(images, (g) => {
+        let s = new SceneTitle(g)
         g.runWithScene(s)
     })
     enableDebugMode(game, true)

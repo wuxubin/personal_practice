@@ -43,7 +43,7 @@
 
 
 
-let Paddle = function (game) {
+let Paddle = (game) => {
     let o = game.imageByName('paddle')
     // let o = {
     //     image: image,
@@ -54,28 +54,23 @@ let Paddle = function (game) {
     o.x = 100
     o.y = 250
     o.speed = 5
-    o.moveLeft = function () {
+    o.moveLeft = () => {
         o.x -= o.speed
         if (o.x < 0) {
             o.x = 0
         }
     }
-    o.moveRight = function () {
+    o.moveRight = () => {
         o.x += o.speed
         if (o.x > 400 - o.w) {
             o.x = 400 - o.w
         }
     }
-    let aInb = function (x, x1, x2) {
+    let aInb = (x, x1, x2) => {
         return x >= x1 && x <= x2
     }
-    o.collide = function (ball) {
-        // if (ball.y + ball.h > o.y) {
-        //     if (ball.x > o.x && ball.x < o.x + o.h) {
-        //         return true
-        //     }
-        // }
-        // return false
+    o.collide = (ball) => {
+
         let a = o
         let b = ball
         if (aInb(a.x, b.x, b.x + b.w) || aInb(b.x, a.x, a.x + a.w)) {

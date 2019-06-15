@@ -49,45 +49,22 @@ class Guagame {
         this.scene = scene
     }
     init() {
-        let g = this
         let loads = []
-        // 预先载入所有图片
-        let names = Object.keys(g.images)
+        let names = Object.keys(this.images)
         for (let i = 0; i < names.length; i++) {
-            let name = names[i]
-            let path = g.images[name]
+            const name = names[i];
+            let path = this.images[name]
             let img = new Image()
             img.src = path
-            img.onload = function () {
-                // 存入 g.images 中
-                g.images[name] = img
-                // 所有图片都成功载入之后, 调用 run
+            img.onload = () => {
+                this.images[name] = img
                 loads.push(1)
                 if (loads.length == names.length) {
-                    g.run()
+                    this.run()
                 }
             }
         }
     }
-    // init() {
-    //     let loads = []
-    //     let names = Object.keys(this.images)
-    //     for (let i = 0; i < names.length; i++) {
-    //         const name = names[i];
-    //         let path = this.images[name]
-    //         let img = new Image()
-    //         img.src = path
-    //         img.onload = function () {
-    //            this.images[name] = img
-    //             loads.push(1)
-    //             if (loads.length == names.length) {
-    //                this.run()
-    //             }
-    //         }
-    //     }
-
-
-    // }
     imageByName(name) {
         let img = this.images[name]
         let image = {

@@ -1,4 +1,4 @@
-let Block = function (game, position) {
+let Block = (game, position) => {
     let p = position
     let o = game.imageByName('block')
     o.x = p[0]
@@ -7,13 +7,13 @@ let Block = function (game, position) {
     o.h = 20
     o.alive = true
     o.lifes = p[2] || 1
-    o.kill = function () {
+    o.kill = () => {
         o.lifes--
         if (o.lifes < 1) {
             o.alive = false
         }
     }
-    o.collide = function (b) {
+    o.collide = (b) => {
         return o.alive && (rectIntersects(b, o) || rectIntersects(o, b))
     }
     return o
