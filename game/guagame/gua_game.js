@@ -64,11 +64,7 @@ var Guagame = function (images, runCallBack) {
         }
     }
     g.imageByName = function (name) {
-        console.log(name, 'name');
-
         var img = g.images[name]
-        console.log('img', img);
-
         var image = {
             w: img.width,
             h: img.height,

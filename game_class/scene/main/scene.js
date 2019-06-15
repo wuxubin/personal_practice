@@ -13,7 +13,7 @@ var Scene = function (game) {
         }
         ball.move()
         if (ball.y> paddle.y) {
-            var end=SceneEnd(game)
+            var end=new SceneEnd(game)
             game.replaceScene(end)
         }
         if (paddle.collide(ball)) {

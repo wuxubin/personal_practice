@@ -40,8 +40,8 @@ var _main = function () {
         paddle: 'img/paddle.png',
     }
     window.fps = 60
-    var game = Guagame(images, function (g) {
-        var s = SceneTitle(g)
+    var game = new Guagame(images, function (g) {
+        var s =new SceneTitle(g)
         g.runWithScene(s)
     })
     enableDebugMode(game, true)
