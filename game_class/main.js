@@ -40,7 +40,7 @@ let _main = () => {
         paddle: 'img/paddle.png',
     }
     window.fps = 60
-    let game = new Guagame(images, (g) => {
+    let game = Guagame.instance(images, (g) => {
         let s = new SceneTitle(g)
         g.runWithScene(s)
     })
