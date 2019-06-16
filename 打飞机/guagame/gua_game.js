@@ -1,7 +1,7 @@
 
 class Guagame {
     constructor(images, runCallBack) {
-        window.fps = 30
+        // window.fps = 30
         this.images = images
         this.runCallBack = runCallBack
         this.actions = {}
