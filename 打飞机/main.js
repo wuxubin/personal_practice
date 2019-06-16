@@ -29,6 +29,8 @@ let enableDebugMode = (game, enable) => {
     document.querySelector('#id-input-speed').addEventListener('input', (event) => {
         let input = event.target
         window.fps = Number(input.value)
+        let label = document.querySelector('#id-speed-label')
+        label.innerText = window.fps
     })
 }
 

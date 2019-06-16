@@ -30,11 +30,29 @@
 <body>
     <canvas id="id-canvas" width="400" height="500"></canvas>
     <br>
-    帧率<input id=id-input-speed type="range" value="1">
+    帧率：<span id="id-speed-label">60</span><input id=id-input-speed type="range">
     <div>
         <label>
-            <input class="gua-auto-slider" type="range" data-value="config.play_speed">
+            <input class="gua-auto-slider" type="range" data-value="config.player_speed">
             玩家速度：<span class="gua-label"></span>
+        </label>
+    </div>
+    <div>
+        <label>
+            <input class="gua-auto-slider" type="range" data-value="config.bullet_speed">
+            子弹速度：<span class="gua-label"></span>
+        </label>
+    </div>
+    <div>
+        <label>
+            <input class="gua-auto-slider" type="range" data-value="config.fire_cooldown">
+            子弹冷却时间：<span class="gua-label"></span>
+        </label>
+    </div>
+    <div>
+        <label>
+            <input class="gua-auto-slider" type="range" min="-10" max="10" data-value="config.cloud_speed">
+            云层速度：<span class="gua-label"></span>
         </label>
     </div>
     <script src="main.js"></script>
@@ -50,11 +68,12 @@
             }
         }
 
-        bindAll('.gua-auto-slider', 'input', (event) => {            
+        bindAll('.gua-auto-slider', 'input', (event) => {
             let target = event.target
             let bindvar = target.dataset.value
             let v = target.value
             eval(bindvar + '=' + v)
+            // config[bindvar] = v
             let label = target.closest('label').querySelector('.gua-label')
             label.innerText = v
         })
