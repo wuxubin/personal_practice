@@ -1,6 +1,6 @@
-class Scene {
+class Scene extends GuaScene {
     constructor(game) {
-        this.game = game
+        super(game)
         this.paddle = Paddle(this.game)
         this.ball = Ball(this.game)
         this.score = 0

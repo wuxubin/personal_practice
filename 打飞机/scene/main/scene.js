@@ -1,82 +1,155 @@
-class Scene {
+const config = {
+    player_speed:10
+}
+class Bullet extends GuaImage {
     constructor(game) {
-        this.game = game
-        this.paddle = Paddle(this.game)
-        this.ball = Ball(this.game)
-        this.score = 0
-        this.init()
+        super(game, 'bullet')
+        this.setup()
+    }
+    setup() {
+        this.speed = 1
     }
     update() {
-        if (window.paused) {
+        this.y -= this.speed
+    }
+}
+
+
+class Player extends GuaImage {
+    constructor(game) {
+        super(game, 'player')
+        this.setup()
+    }
+    setup() {
+        this.speed = 5
+        this.cooldown = 0
+    }
+    update() {
+        this.speed = config.player_speed
+        console.log(this.speed);
+        
+        // if (this.cooldown > 0) {
+        //     this.cooldown--
+        // }
+    }
+    moveLeft() {
+        this.x -= this.speed
+    }
+    moveRight() {
+        this.x += this.speed
+    }
+    moveUp() {
+        this.y -= this.speed
+    }
+    moveDown() {
+        this.y += this.speed
+    }
+    fire() {
+        if (this.cooldown > 0) {
+            this.cooldown--
             return
         }
-        this.ball.move()
-        if (this.ball.y > this.paddle.y) {
-            var end = new SceneEnd(this.game)
-            this.game.replaceScene(end)
-        }
-        if (this.paddle.collide(this.ball)) {
-            this.ball.speedY *= -1
-        }
-        for (let i = 0; i < blocks.length; i++) {
-            const block = blocks[i];
-            if (block.collide(this.ball)) {
-                block.kill()
-                this.ball.反弹()
-                this.score += 100
-            }
+        this.cooldown = 20
+        let b = new Bullet(this.game)
+        let x = this.x + this.w / 2 - b.w / 2
+        let y = this.y - b.h / 2
+        b.x = x
+        b.y = y
+
+        // 
+        this.scene.addElement(b)
+    }
+}
+const randomBetween = (start, end) => {
+    let n = Math.random() * (end - start + 1)
+    return Math.floor(n + start)
+}
+class Enemy extends GuaImage {
+    constructor(game) {
+        let type = randomBetween(0, 4)
+        let name = 'enemy' + type
+        super(game, name)
+        this.setup()
+    }
+    setup() {
+        this.speed = randomBetween(2, 5)
+        this.x = randomBetween(0, 400)
+        this.y = randomBetween(0, 150)
+    }
+    update() {
+        this.y += this.speed
+        if (this.y > 600) {
+            this.setup()
         }
     }
-
-    draw() {
-        this.game.context.fillStyle = '#555'
-        this.game.context.fillRect(0, 0, 400, 300)
-        this.game.drawImage(this.paddle)
-        this.game.drawImage(this.ball)
-        for (let i = 0; i < blocks.length; i++) {
-            const block = blocks[i];
-            if (block.alive) {
-                this.game.drawImage(block)
-            }
-        }
-        this.game.context.fillStyle = '#999'
-        this.game.context.fillText('分数：' + this.score, 10, 290)
+}
+class Cloud extends GuaImage {
+    constructor(game) {
+        super(game, 'cloud')
+        this.setup()
     }
-
-    init() {
-        window.blocks = loadLevel(this.game, 2)
-        var enableDrag = false
-        this.game.canvas.addEventListener('mousedown', (event) => {
-            var x = event.offsetX
-            var y = event.offsetY
-            // 检查是否点中了 ball
-            if (this.ball.hasPoint(x, y)) {
-                // 设置拖拽状态
-                enableDrag = true
-            }
-        })
-        this.game.canvas.addEventListener('mousemove', (event) => {
-            var x = event.offsetX
-            var y = event.offsetY
-            // log(x, y, 'move')
-            if (enableDrag) {
-                this.ball.x = x
-                this.ball.y = y
-            }
-        })
-        this.game.canvas.addEventListener('mouseup', (event) => {
-            var x = event.offsetX
-            var y = event.offsetY
-            enableDrag = false
-        })
+    setup() {
+        this.speed = 1
+        this.x = randomBetween(0, 400)
+        this.y = randomBetween(0, 150)
+    }
+    update() {
+        this.y += this.speed
+        if (this.y > 600) {
+            this.setup()
+        }
+    }
+}
+class Scene extends GuaScene {
+    constructor(game) {
+        super(game)
+        this.setup()
+        this.setupInputs()
+    }
+    setup() {
+        this.numberOfEnemies = 10
+        this.bg = new GuaImage(this.game, "sky")
+        this.player = new Player(this.game)
+        this.cloud = new Cloud(this.game)
+        this.player.x = 100
+        this.player.y = 400
+        this.addElement(this.bg)
+        this.addElement(this.cloud)
+        this.addElement(this.player)
+        this.addEnemies()
+    }
+    addEnemies() {
+        let es = []
+        for (let i = 0; i < this.numberOfEnemies; i++) {
+            const e = new Enemy(this.game)
+            es.push(e)
+            this.addElement(e)
+        }
+        this.enemies = es
+    }
+    setupInputs() {
+        var s = this
         this.game.registerAction('a', () => {
-            this.paddle.moveLeft()
+            this.player.moveLeft()
         })
         this.game.registerAction('d', () => {
-            this.paddle.moveRight()
+            this.player.moveRight()
         })
-        this.game.registerAction('f', () => {
-            this.ball.fire()
+        this.game.registerAction('w', () => {
+            this.player.moveUp()
+        })
+        this.game.registerAction('s', () => {
+            this.player.moveDown()
+        })
+        this.game.registerAction('j', () => {
+            this.player.fire()
         })
     }
+    update() {
+        super.update()
+        this.cloud.y += 1
+    }
+
+
+
 }

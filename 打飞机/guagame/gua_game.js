@@ -46,7 +46,7 @@ class Guagame {
         this.actions[key] = callback
     }
     drawImage(guaImage) {
-        this.context.drawImage(guaImage.image, guaImage.x, guaImage.y)
+        this.context.drawImage(guaImage.texture, guaImage.x, guaImage.y)
     }
     replaceScene(scene) {
         this.scene = scene
@@ -68,14 +68,14 @@ class Guagame {
             }
         }
     }
-    imageByName(name) {
+    textureByName(name) {
         let img = this.images[name]
-        let image = {
-            w: img.width,
-            h: img.height,
-            image: img,
-        }
-        return image
+        // let image = {
+        //     w: img.width,
+        //     h: img.height,
+        //     image: img,
+        // }
+        return img
     }
     update() {
         this.scene.update()

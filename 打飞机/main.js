@@ -1,14 +1,14 @@
-let loadLevel = (game, n) => {
-    let blocks = []
-    n = n - 1
-    let level = levels[n]
-    for (let i = 0; i < level.length; i++) {
-        let p = level[i]
-        let b = Block(game, p)
-        blocks.push(b)
-    }
-    return blocks
-}
+// let loadLevel = (game, n) => {
+//     let blocks = []
+//     n = n - 1
+//     let level = levels[n]
+//     for (let i = 0; i < level.length; i++) {
+//         let p = level[i]
+//         let b = Block(game, p)
+//         blocks.push(b)
+//     }
+//     return blocks
+// }
 
 let enableDebugMode = (game, enable) => {
     if (!enable) {
@@ -22,26 +22,31 @@ let enableDebugMode = (game, enable) => {
             window.paused = !window.paused
         } else if ('1234567'.includes(k)) {
             // 为了 debug 临时加的载入关卡功能
-            window.blocks = loadLevel(game, Number(k))
+            // window.blocks = loadLevel(game, Number(k))
 
         }
     })
     document.querySelector('#id-input-speed').addEventListener('input', (event) => {
         let input = event.target
-        // log(event, input.value)
         window.fps = Number(input.value)
     })
 }
 
 let _main = () => {
     let images = {
-        ball: 'img/ball.png',
-        block: 'img/block.png',
-        paddle: 'img/paddle.png',
+        bullet: 'img/bullet.png',
+        cloud: 'img/cloud.png',
+        player: 'img/player.png',
+        sky: 'img/sky.png',
+        enemy0: 'img/enemy0.png',
+        enemy1: 'img/enemy1.png',
+        enemy2: 'img/enemy2.png',
+        enemy3: 'img/enemy3.png',
+        enemy4: 'img/enemy4.png',
     }
     window.fps = 60
     let game = Guagame.instance(images, (g) => {
-        let s = new SceneTitle(g)
+        let s = new Scene(g)
         g.runWithScene(s)
     })
     enableDebugMode(game, true)
