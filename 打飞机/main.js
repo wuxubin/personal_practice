@@ -45,10 +45,12 @@ let _main = () => {
         enemy2: 'img/enemy2.png',
         enemy3: 'img/enemy3.png',
         enemy4: 'img/enemy4.png',
+        fire: 'img/fire.png',
     }
     window.fps = 60
     let game = Guagame.instance(images, (g) => {
-        let s = new Scene(g)
+        // let s = new Scene(g)
+        let s = new SceneTitle(g)
         g.runWithScene(s)
     })
     enableDebugMode(game, true)

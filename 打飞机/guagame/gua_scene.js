@@ -7,7 +7,8 @@ class GuaScene {
     draw() {
         for (let i = 0; i < this.elements.length; i++) {
             const e = this.elements[i];
-            this.game.drawImage(e)
+            // this.game.drawImage(e)
+            e.draw()
         }
     }
     update() {
