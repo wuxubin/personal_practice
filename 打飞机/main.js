@@ -49,8 +49,8 @@ let _main = () => {
     }
     window.fps = 60
     let game = Guagame.instance(images, (g) => {
-        // let s = new Scene(g)
-        let s = new SceneTitle(g)
+        let s = new Scene(g)
+        // let s = new SceneTitle(g)
         g.runWithScene(s)
     })
     enableDebugMode(game, true)

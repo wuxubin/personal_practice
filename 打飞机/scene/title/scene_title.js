@@ -40,12 +40,14 @@ class GuaParticleSystem {
         this.setup()
     }
     setup() {
+        this.duration = 50
         this.x = 150
         this.y = 200
         this.numberOfParticles = 100
         this.particles = []
     }
     update() {
+        this.duration--
         // 添加小火花
         if (this.particles.length < this.numberOfParticles) {
             let p = new GuaParticle(this.game)
@@ -62,6 +64,11 @@ class GuaParticleSystem {
         this.particles = this.particles.filter(p => p.life > 0)
     }
     draw() {
+        if (this.duration < 0) {
+            // 这里应该从scene删掉，这个是临时的
+            return
+
+        }
         for (const p of this.particles) {
             p.draw()
         }
