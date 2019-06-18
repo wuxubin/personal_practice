@@ -46,11 +46,21 @@ let _main = () => {
         enemy3: 'img/enemy3.png',
         enemy4: 'img/enemy4.png',
         fire: 'img/fire.png',
+        w1: 'img/walking/Walk (1).png',
+        w2: 'img/walking/Walk (2).png',
+        w3: 'img/walking/Walk (3).png',
+        w4: 'img/walking/Walk (4).png',
+        w5: 'img/walking/Walk (5).png',
+        w6: 'img/walking/Walk (6).png',
+        w7: 'img/walking/Walk (7).png',
+        w8: 'img/walking/Walk (8).png',
+        w9: 'img/walking/Walk (9).png',
+        w10: 'img/walking/Walk (10).png',
     }
     window.fps = 60
     let game = Guagame.instance(images, (g) => {
-        let s = new Scene(g)
-        // let s = new SceneTitle(g)
+        // let s = new Scene(g)
+        let s = new SceneTitle(g)
         g.runWithScene(s)
     })
     enableDebugMode(game, true)
