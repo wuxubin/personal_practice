@@ -73,6 +73,7 @@ let _main = () => {
         idle13: 'img/zombie/idle (13).png',
         idle14: 'img/zombie/idle (14).png',
         idle15: 'img/zombie/idle (15).png',
+        cave: 'img/cave.jpg',
     }
     window.fps = 60
     let game = Guagame.instance(images, (g) => {
