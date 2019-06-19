@@ -25,10 +25,13 @@ class Guagame {
         let actions = Object.keys(this.actions)
         for (let i = 0; i < actions.length; i++) {
             let key = actions[i]
-            var status = this.keydowns[key]            
-            this.actions[key](status)
+            var status = this.keydowns[key]      
+            if (status == 'down') {
+                this.actions[key](status)
+            }      
             if (status == 'up') {
                 // 删除这个key的状态
+                this.actions[key](status)
                 this.keydowns[key] = null
             }
         }
