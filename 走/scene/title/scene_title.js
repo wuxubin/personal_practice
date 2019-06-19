@@ -15,11 +15,11 @@ class SceneTitle extends GuaScene {
         this.setupInputs()
     }
     setupInputs() {
-        this.game.registerAction('a', () => {
-            this.w.move(-5)
+        this.game.registerAction('a', (keyStatus) => {
+            this.w.move(-5, keyStatus)
         })
-        this.game.registerAction('d', () => {
-            this.w.move(5)
+        this.game.registerAction('d', (keyStatus) => {
+            this.w.move(5, keyStatus)
         })
     }
 }

@@ -9,10 +9,10 @@ class Guagame {
         this.canvas = document.querySelector('#id-canvas')
         this.context = this.canvas.getContext('2d')
         window.addEventListener('keydown', (event) => {
-            this.keydowns[event.key] = true
+            this.keydowns[event.key] = 'down'
         })
         window.addEventListener('keyup', (event) => {
-            this.keydowns[event.key] = false
+            this.keydowns[event.key] = 'up'
         })
         this.init()
     }
@@ -25,9 +25,11 @@ class Guagame {
         let actions = Object.keys(this.actions)
         for (let i = 0; i < actions.length; i++) {
             let key = actions[i]
-            if (this.keydowns[key]) {
-                // 如果按键被按下, 调用注册的 action
-                this.actions[key]()
+            var status = this.keydowns[key]            
+            this.actions[key](status)
+            if (status == 'up') {
+                // 删除这个key的状态
+                this.keydowns[key] = null
             }
         }
         // update
