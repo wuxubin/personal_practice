@@ -5,23 +5,48 @@ class SceneTitle extends GuaScene {
         //     let s = new Scene(game)
         //     game.replaceScene(s)
         // })
-        var label = new GuaLabel(game, "hello from gua")
-        this.addElement(label)
-        let cave = new GuaImage(game, 'cave')
-        this.addElement(cave)
-        let w = new GuaAnimation(game)
-        w.x = 100
-        w.y = 200
-        this.w = w
-        this.addElement(w)
+        // var label = new GuaLabel(game, "hello from gua")
+        // this.addElement(label)
+        let bg = new GuaImage(game, 'bg')
+        this.addElement(bg)
+        this.grounds = []
+        for (let i = 0; i < 21; i++) {
+            let g = new GuaImage(game, 'ground')
+            g.x = i * 37
+            g.y = 895
+            this.addElement(g)
+            this.grounds.push(g)
+        }
+        this.skipCount = 8
+        let b = new GuaAnimation(game)
+        b.x = 180
+        b.y = 300
+        this.bird = b
+        this.addElement(b)
         this.setupInputs()
+    }
+    update() {
+        super.update()
+        this.skipCount--
+        let offset = -2
+        if (this.skipCount == 0) {
+            this.skipCount = 8
+            offset = 14
+        }
+        for (let i = 0; i < 21; i++) {
+            let g = this.grounds[i]
+            g.x += offset
+        }
     }
     setupInputs() {
         this.game.registerAction('a', (keyStatus) => {
-            this.w.move(-5, keyStatus)
+            this.bird.move(-5, keyStatus)
         })
         this.game.registerAction('d', (keyStatus) => {
-            this.w.move(5, keyStatus)
+            this.bird.move(5, keyStatus)
+        })
+        this.game.registerAction('j', (keyStatus) => {
+            this.bird.jump()
         })
     }
 }

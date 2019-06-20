@@ -76,7 +76,7 @@ let _main = () => {
         cave: 'img/cave.jpg',
         // flappy bird images
         bg:'img/bird/background.png',
-        groud:'img/bird/groud.png',
+        ground:'img/bird/ground.png',
         b1:'img/bird/bird1.png',
         b2:'img/bird/bird2.png',
         b3:'img/bird/bird3.png',
