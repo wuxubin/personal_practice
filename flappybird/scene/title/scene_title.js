@@ -1,3 +1,52 @@
+class Pipes {
+    constructor(game) {
+        this.game = game
+        this.pipes = []
+        this.pipeSpace = 250
+        this.管子横向间距 = 400
+        this.columsOfPipe = 3
+        for (let i = 0; i < 3; i++) {
+            let p1 = new GuaImage(game, 'pipe')
+            p1.flipY = true
+            p1.x = 500 + i * this.管子横向间距
+            let p2 = new GuaImage(game, 'pipe')
+            p2.x = p1.x
+            this.resetPipesPosition(p1, p2)
+            this.pipes.push(p1)
+            this.pipes.push(p2)
+        }
+    }
+    resetPipesPosition(p1, p2) {
+        p1.y = randomBetween(-500, -200)
+        p2.y = p1.y + p1.h + this.pipeSpace
+    }
+    update() {
+        for (const p of this.pipes) {
+            p.x -= 5
+            if (p.x < -100) {
+                p.x += this.管子横向间距 * this.columsOfPipe
+            }
+        }
+    }
+    draw() {
+        let context = this.game.context
+        for (const p of this.pipes) {
+            context.save()
+            let w2 = p.w / 2
+            let h2 = p.h / 2
+            context.translate(p.x + w2, p.y + h2)
+            let scaleX = p.flipX ? -1 : 1
+            let scaleY = p.flipY ? -1 : 1
+            context.scale(scaleX, scaleY)
+            context.globalAlpha = p.alpha
+            context.rotate(p.rotation * Math.PI / 180)
+            context.translate(-w2, -h2)
+            context.drawImage(p.texture, 0, 0)
+            context.restore()
+        }
+    }
+}
+
 class SceneTitle extends GuaScene {
     constructor(game) {
         super(game)
@@ -9,6 +58,9 @@ class SceneTitle extends GuaScene {
         // this.addElement(label)
         let bg = new GuaImage(game, 'bg')
         this.addElement(bg)
+        // 加入水管
+        this.pipe = new Pipes(game)
+        this.addElement(this.pipe)
         this.grounds = []
         for (let i = 0; i < 21; i++) {
             let g = new GuaImage(game, 'ground')
