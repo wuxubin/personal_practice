@@ -14,6 +14,8 @@
     <div class="gua-controls">
         <button data-action="change_offset" data-offset="-1024">-1024</button>
         <button data-action="change_offset" data-offset="1024">1024</button>
+        <button data-action="change_offset" data-offset="-16">-16</button>
+        <button data-action="change_offset" data-offset="16">16</button>
     </div>
     <script>
         /*
@@ -38,9 +40,9 @@
         const drawBlock = (context, data, x, y, pixeWidth) => {
             const colors = [
                 'white',
-                'gray',
-                'blue',
-                'black',
+                'rgb(188, 25, 0)',
+                'rgb(247, 180, 0)',
+                'rgb(91, 106, 0)',
             ]
 
             let w = pixeWidth
@@ -104,7 +106,7 @@
             })
         }
         const _main = () => {
-            window.offset = 0
+            window.offset = 32784
             let request = {
                 url: 'mario.nes',
                 callback(r) {
