@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Guario</title>
+</head>
+
+<body>
+    <h3></h3>
+    <canvas id="id-canvas" width="640" height="640"></canvas>
+    <div class="gua-controls">
+        <button data-action="change_offset" data-offset="-1024">-1024</button>
+        <button data-action="change_offset" data-offset="1024">1024</button>
+    </div>
+    <script>
+        /*
+        8 x 8 像素每个方块
+        2 bits 每个像素
+        16 bytes 一个图块
+        每页 8 x 8 个图块 就是宽高各64像素
+        */
+        const e = sel => document.querySelector(sel)
+        const log = console.log.bind(console)
+        const ajax = request => {
+            let r = new XMLHttpRequest()
+            r.open('GET', request.url, true)
+            r.responseType = 'arraybuffer'
+            r.onreadystatechange = event => {
+                if (r.readyState == 4) {
+                    request.callback(r.response)
+                }
+            }
+            r.send()
+        }
+        const drawBlock = (context, data, x, y, pixeWidth) => {
+            const colors = [
+                'white',
+                'gray',
+                'blue',
+                'black',
+            ]
+
+            let w = pixeWidth
+            let h = pixeWidth
+            for (let i = 0; i < 8; i++) {
+                let p1 = data[i]
+                let p2 = data[i + 8]
+                for (let j = 0; j < 8; j++) {
+                    // 8 bits per line
+                    // 78 69  ==  0100 1110 0100 0101
+                    // 在j循环中，每一次画一个像素点
+                    let c1 = (p1 >> (7 - j)) & 0b00000001
+                    let c2 = (p2 >> (7 - j)) & 0b00000001
+                    let pixel = (c2 << 1) + c1
+                    let color = colors[pixel]
+                    context.fillStyle = color
+                    let px = x + j * w
+                    let py = y + i * h
+                    context.fillRect(px, py, w, h)
+                }
+
+            }
+        }
+
+        const drawNes = bytes => {
+            // 78 69
+            // 0100 1110 0100 0101
+            let canvas = e('#id-canvas')
+            let context = canvas.getContext('2d')
+
+            let blockSize = 8 // 一个图块8像素
+            let pixelSize = 8 //一个像素8位
+            let pixeWidth = 10
+            let numberOfBytesPerBlock = 16 // 一个图块16字节
+            for (let i = 0; i < blockSize; i++) {
+                for (let j = 0; j < blockSize; j++) {
+                    // 算出bytes
+                    let x = j * pixelSize * pixeWidth
+                    let y = i * pixelSize * pixeWidth
+                    let index = window.offset + (i * 8 + j) * numberOfBytesPerBlock
+                    drawBlock(context, bytes.slice(index), x, y, pixeWidth)
+
+                }
+
+            }
+
+        }
+        const actions = {
+            change_offset(offset) {
+                window.offset += offset
+                e('h3').innerHTML = window.offset
+                drawNes(window.bytes)
+            },
+        }
+        const bindEvent = () => {
+            e('.gua-controls').addEventListener('click', event => {
+                let action = event.target.dataset.action
+                let offset = Number(event.target.dataset.offset)
+                actions[action] && actions[action](offset)
+
+            })
+        }
+        const _main = () => {
+            window.offset = 0
+            let request = {
+                url: 'mario.nes',
+                callback(r) {
+                    window.bytes = new Uint8Array(r)
+                    log('bytes', bytes)
+                    drawNes(bytes)
+                },
+            }
+            ajax(request)
+            bindEvent()
+        }
+        _main()
+    </script>
+</body>
+
+</html>
