@@ -11,6 +11,7 @@
 <body>
     <h3></h3>
     <canvas id="id-canvas" width="640" height="640"></canvas>
+    <canvas id="id-canvas-sprite" width="160" height="320"></canvas>
     <div class="gua-controls">
         <button data-action="change_offset" data-offset="-1024">-1024</button>
         <button data-action="change_offset" data-offset="1024">1024</button>
@@ -37,7 +38,7 @@
             }
             r.send()
         }
-        const drawBlock = (context, data, x, y, pixeWidth) => {
+        const drawBlock = (context, data, x, y, pixelWidth) => {
             const colors = [
                 'white',
                 'rgb(188, 25, 0)',
@@ -45,8 +46,8 @@
                 'rgb(91, 106, 0)',
             ]
 
-            let w = pixeWidth
-            let h = pixeWidth
+            let w = pixelWidth
+            let h = pixelWidth
             for (let i = 0; i < 8; i++) {
                 let p1 = data[i]
                 let p2 = data[i + 8]
@@ -75,15 +76,15 @@
 
             let blockSize = 8 // 一个图块8像素
             let pixelSize = 8 //一个像素8位
-            let pixeWidth = 10
+            let pixelWidth = 10
             let numberOfBytesPerBlock = 16 // 一个图块16字节
             for (let i = 0; i < blockSize; i++) {
                 for (let j = 0; j < blockSize; j++) {
                     // 算出bytes
-                    let x = j * pixelSize * pixeWidth
-                    let y = i * pixelSize * pixeWidth
+                    let x = j * pixelSize * pixelWidth
+                    let y = i * pixelSize * pixelWidth
                     let index = window.offset + (i * 8 + j) * numberOfBytesPerBlock
-                    drawBlock(context, bytes.slice(index), x, y, pixeWidth)
+                    drawBlock(context, bytes.slice(index), x, y, pixelWidth)
 
                 }
 
@@ -104,15 +105,54 @@
                 actions[action] && actions[action](offset)
 
             })
+            window.addEventListener('keydown', event => {
+                if (event.key == 'p') {
+                    window.pause = !window.pause
+                }
+            })
+        }
+        const drawSprite = (data) => {
+            let context = e('#id-canvas-sprite').getContext('2d')
+            let pixelsPerBlock = 8
+            let pixelWidth = 10
+            let blockSize = pixelsPerBlock * pixelWidth
+            let offset = 0
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 2; j++) {
+                    let x = j * blockSize
+                    let y = i * blockSize
+                    let pixels = data.slice(offset)
+                    drawBlock(context, pixels, x, y, pixelWidth)
+                    offset += 16
+                }
+
+            }
         }
         const _main = () => {
             window.offset = 32784
+            window.pause = false
+            let tileOffset = 32784
             let request = {
                 url: 'mario.nes',
                 callback(r) {
                     window.bytes = new Uint8Array(r)
                     log('bytes', bytes)
                     drawNes(bytes)
+                    let step = 0
+                    let bitesPerBlock = 16
+                    let tilesPerSprite = 8
+                    let bytesPerSprite = bitesPerBlock * tilesPerSprite
+                    setInterval(() => {
+                        // log(step)
+                        let offset = tileOffset + step * bytesPerSprite
+                        drawSprite(bytes.slice(offset))
+                        if (window.pause) {
+
+                        } else {
+                            step++
+                            step %= 6
+                        }
+                    }, 500);
                 },
             }
             ajax(request)
