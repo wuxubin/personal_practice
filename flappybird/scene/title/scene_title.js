@@ -20,12 +20,26 @@ class Pipes {
         p1.y = randomBetween(-500, -200)
         p2.y = p1.y + p1.h + this.pipeSpace
     }
+    debug() {
+        this.管子横向间距 = config.管子横向间距.value
+        this.pipeSpace = config.pipe_space.value
+    }
     update() {
-        for (const p of this.pipes) {
-            p.x -= 5
-            if (p.x < -100) {
-                p.x += this.管子横向间距 * this.columsOfPipe
+        for (let i = 0; i < this.pipes.length / 2; i += 2) {
+            const p1 = this.pipes[i];
+            const p2 = this.pipes[i + 1];
+            p1.x -= 5
+            p2.x -= 5
+            if (p1.x < -100) {
+                p1.x += this.管子横向间距 * this.columsOfPipe
             }
+            if (p2.x < -100) {
+                p2.x += this.管子横向间距 * this.columsOfPipe
+                this.resetPipesPosition(p1, p2)
+            }
+        }
+        for (const p of this.pipes) {
+
         }
     }
     draw() {
@@ -73,6 +87,7 @@ class SceneTitle extends GuaScene {
         let b = new GuaAnimation(game)
         b.x = 180
         b.y = 300
+        this.birdSpeed = 5
         this.bird = b
         this.addElement(b)
         this.setupInputs()
@@ -90,12 +105,15 @@ class SceneTitle extends GuaScene {
             g.x += offset
         }
     }
+    debug() {
+        this.birdSpeed=config.bird_speed.value
+    }
     setupInputs() {
         this.game.registerAction('a', (keyStatus) => {
-            this.bird.move(-5, keyStatus)
+            this.bird.move(-this.birdSpeed, keyStatus)
         })
         this.game.registerAction('d', (keyStatus) => {
-            this.bird.move(5, keyStatus)
+            this.bird.move(this.birdSpeed, keyStatus)
         })
         this.game.registerAction('j', (keyStatus) => {
             this.bird.jump()

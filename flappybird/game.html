@@ -28,36 +28,21 @@
     <script src="scene/title/scene_title.js"></script>
 
     <script src="level.js"></script>
+    <script src="config.js"></script>
 </head>
 
 <body>
     <canvas id="id-canvas" width="760" height="1000"></canvas>
     <br>
     帧率：<span id="id-speed-label">60</span><input id=id-input-speed type="range">
+    <div class="gua-controls"></div>
     <div>
         <label>
             <input class="gua-auto-slider" type="range" data-value="config.player_speed">
             玩家速度：<span class="gua-label"></span>
         </label>
     </div>
-    <div>
-        <label>
-            <input class="gua-auto-slider" type="range" data-value="config.bullet_speed">
-            子弹速度：<span class="gua-label"></span>
-        </label>
-    </div>
-    <div>
-        <label>
-            <input class="gua-auto-slider" type="range" data-value="config.fire_cooldown">
-            子弹冷却时间：<span class="gua-label"></span>
-        </label>
-    </div>
-    <div>
-        <label>
-            <input class="gua-auto-slider" type="range" min="-10" max="10" data-value="config.cloud_speed">
-            云层速度：<span class="gua-label"></span>
-        </label>
-    </div>
+
     <script src="main.js"></script>
     <script>
         var es = sel => document.querySelectorAll(sel)
@@ -70,16 +55,50 @@
                 })
             }
         }
+        var templateControls = function (key, item) {
+            var t = `
+            <div>
+                <label>
+                    <input class="gua-auto-slider"
+                    max="300"
+                    type="range" value="${item.value}"
+                    data-value="config.${key}"
+                    >
+                    ${item._comment}<span class="gua-label"></span>
+                </label>
+            </div>
+            `
+            return t
+        }
 
-        bindAll('.gua-auto-slider', 'input', (event) => {
-            let target = event.target
-            let bindvar = target.dataset.value
-            let v = target.value
-            eval(bindvar + '=' + v)
-            // config[bindvar] = v
-            let label = target.closest('label').querySelector('.gua-label')
-            label.innerText = v
-        })
+        var insetrControls = function () {
+            var div = document.querySelector('.gua-controls')
+            var keys = Object.keys(config)
+            for (const k of keys) {
+                var item = config[k]
+                var html = templateControls(k, item)
+                // console.log(html);                              
+                div.insertAdjacentHTML('beforeend', html)
+            }
+        }
+        var bindEvent = function () {
+            bindAll('.gua-auto-slider', 'input', (event) => {
+                let target = event.target
+                let bindvar = target.dataset.value
+                let v = target.value
+                eval(bindvar + '.value =' + v)
+                // config[bindvar] = v
+                let label = target.closest('label').querySelector('.gua-label')
+                label.innerText = v
+            })
+        }
+        var _main2 = function () {
+            // 从配置文件生成html空间
+            insetrControls()
+            // 
+            bindEvent()
+        }
+        _main2()
     </script>
 </body>
 
