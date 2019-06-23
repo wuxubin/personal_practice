@@ -17,7 +17,7 @@
     <h3>32784</h3>
     <canvas id="id-canvas" data-action="draw_tile" data-type="source" width="640" height="640"></canvas>
     <canvas id="" data-action="draw_tile" data-type="tile" width="160" height="160"></canvas>
-    <canvas id="" data-action="draw_tile" data-type="tile" width="480" height="480"></canvas>
+    <!-- <canvas id="" data-action="draw_tile" data-type="tile" width="480" height="480"></canvas> -->
     <canvas id="id-canvas-sprite" data-action="draw_tile" data-type="tile" width="160" height="320"></canvas>
     <div class="gua-controls">
         <button data-action="change_offset" data-offset="-1024">-1024</button>
@@ -65,12 +65,14 @@
                     let c1 = (p1 >> (7 - j)) & 0b00000001
                     let c2 = (p2 >> (7 - j)) & 0b00000001
                     let pixel = (c2 << 1) + c1
+                    let px = x + j * w
+                    let py = y + i * h
                     if (pixel != 0) {
-                        let px = x + j * w
-                        let py = y + i * h
                         let color = colors[pixel]
                         context.fillStyle = color
                         context.fillRect(px, py, w, h)
+                    } else {
+                        context.clearRect(px, py, w, h)
                     }
                 }
 
@@ -82,8 +84,7 @@
             // 0100 1110 0100 0101
             let canvas = e('#id-canvas')
             let context = canvas.getContext('2d')
-            context.clearRect(0, 0, 1000, 1000)
-
+            // context.clearRect(0, 0, 1000, 1000)
             let blockSize = 8 // 一个图块8像素
             let pixelSize = 8 //一个像素8位
             let pixelWidth = 10
