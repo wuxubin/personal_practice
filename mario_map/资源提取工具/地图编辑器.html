@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>地图编辑器</title>
+    <style>
+        /* canvas {
+            border: 5px dashed lightskyblue;
+        } */
+
+        div {
+            outline: 1px lightskyblue dashed;
+        }
+
+        canvas {
+            border: 1px solid black;
+        }
+
+        /* .gua-inline-block {
+            display: inline-block;
+        } */
+    </style>
+</head>
+
+<body>
+    <canvas id="id-canvas" data-action="draw_tile" data-type="source" width="512" height="480"></canvas>
+    <div>
+        <img data-action="change_active_tile" src="../tiles/b1.png" data-id="1">
+        <img data-action="change_active_tile" src="../tiles/b2.png" data-id="2">
+        <img data-action="change_active_tile" src="../tiles/b3.png" data-id="3">
+        <img data-action="change_active_tile" src="../tiles/b4.png" data-id="4">
+    </div>
+    <div class="gua-controls">
+        <button data-action="change_offset" data-offset="-1024">-1024</button>
+        <button data-action="change_offset" data-offset="1024">1024</button>
+        <button data-action="change_offset" data-offset="-16">-16</button>
+        <button data-action="change_offset" data-offset="16">16</button>
+        <button data-action="clear_tile" data-selector="#id-canvas-tile">清空tile</button>
+    </div>
+    <script>
+        /*
+        8 x 8 像素每个方块
+        2 bits 每个像素
+        16 bytes 一个图块
+        每页 8 x 8 个图块 就是宽高各64像素
+        */
+        const e = sel => document.querySelector(sel)
+        const log = console.log.bind(console)
+        const actions = {
+            change_active_tile(event) {
+                let id = Number(event.target.dataset.id)
+                log(id)
+                window.activeTile = event.target
+            },
+            draw_tile(event) {
+                let target = event.target
+                let rect = target.getBoundingClientRect()
+                let x = event.clientX - rect.left
+                let y = event.clientY - rect.top
+                let tileSize = 32
+                let i = Math.floor(x / tileSize)
+                let j = Math.floor(y / tileSize)
+                // log(window.activeTile)
+                let x1 = i * tileSize
+                let y1 = j * tileSize
+                window.context.fillRect(x1, y1, tileSize, tileSize)
+                window.context.drawImage(window.activeTile, x1, y1)
+            }
+        }
+        const drawTileAt = (x, y) => {
+            let tileSize = 32
+            let [x1, y1] = tilePosition(x, y)
+            window.context.fillRect(x1, y1, tileSize, tileSize)
+            window.context.drawImage(window.activeTile, x1, y1)
+        }
+        const tilePosition = (x, y) => {
+            let tileSize = 32
+            let i = Math.floor(x / tileSize)
+            let j = Math.floor(y / tileSize)
+            // log(window.activeTile)
+            let x1 = i * tileSize
+            let y1 = j * tileSize
+            return [x1, y1]
+        }
+        const bindEvents = () => {
+            e('body').addEventListener('click', event => {
+                let action = event.target.dataset.action
+                actions[action] && actions[action](event)
+            })
+            let moving = false
+            window.canvas.addEventListener('mousedown', event => {
+                moving = true
+                // let x = event.clientX
+                // let y = event.clientY
+                // drawTileAt(x, y)
+            })
+            window.canvas.addEventListener('mousemove', event => {
+                if (moving) {
+                    let x = event.clientX
+                    let y = event.clientY
+                    drawTileAt(x, y)
+                }
+
+            })
+            window.canvas.addEventListener('mouseup', event => {
+                moving = false
+            })
+        }
+        const init = () => {
+            window.activeTile = null
+            window.canvas = e('canvas')
+            window.context = window.canvas.getContext('2d')
+        }
+        const _main = () => {
+            init()
+            bindEvents()
+            window.context.fillStyle = '#5080FF'
+            window.context.fillRect(0, 0, 1000, 1000)
+        }
+        _main()
+    </script>
+</body>
+
+</html>

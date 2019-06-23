@@ -135,9 +135,6 @@
             }
         }
         const bindEvent = () => {
-            // e('body').addEventListener('click', event => {
-
-            // })
             e('body').addEventListener('click', event => {
                 let action = event.target.dataset.action
                 actions[action] && actions[action](event)
