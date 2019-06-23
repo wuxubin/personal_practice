@@ -56,6 +56,11 @@ let _main = () => {
         b1:'img/bird/bird1.png',
         b2:'img/bird/bird2.png',
         b3:'img/bird/bird3.png',
+        // 
+        t1:'tiles/b1.png',
+        t2:'tiles/b2.png',
+        t3:'tiles/b3.png',
+        t4:'tiles/b4.png',
     }
     window.fps = 60
 
@@ -66,7 +71,7 @@ let _main = () => {
             log(bytes)
             let game = Guagame.instance(images, (g) => {
                 // let s = new Scene(g)
-                let s = new SceneTitle(g)
+                let s = new SceneEdit(g)
                 g.runWithScene(s)
             })
             enableDebugMode(game, true)

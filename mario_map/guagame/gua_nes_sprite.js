@@ -11,7 +11,7 @@ class GuaNexSprite {
         // this.AnimationName = 'idle'
         // this.texture = this.frames()[0]
         // ....
-        this.pixelWidth = 3
+        this.pixelWidth = 2
 
         this.rowsOfSprite = 4
         this.columnsOfSprite = 2
@@ -28,6 +28,9 @@ class GuaNexSprite {
         this.rotation = 0
         // 透明度
         this.alpha = 1
+        // 加速和摩擦
+        this.vx = 0
+        this.mx = 0
     }
     // frames() {
     //     return this.animations[this.AnimationName]
@@ -91,17 +94,26 @@ class GuaNexSprite {
         // this.rotation = -45
     }
     update() {
+        // 更新x加速和摩擦
+        this.vx += this.mx
+        // 说明摩擦力已经把速度降至0以下
+        if (this.vx * this.mx > 0) {
+            this.vx = 0
+            this.mx = 0
+        } else {
+            this.x += this.vx
+        }
         // 更新受力
         this.y += this.vy
         this.vy += this.gy * 0.1
-        let h = 800
+        let h = 100
         if (this.y > h) {
             this.y = h
         }
 
         this.frameCount--
         if (this.frameCount == 0) {
-            this.frameCount = 6
+            this.frameCount = 5
             this.framsIndex++
             this.framsIndex %= 3
             // this.AnimationName = this.AnimationName
@@ -128,7 +140,13 @@ class GuaNexSprite {
     }
     move(x, keyStatus) {
         this.flipx = (x < 0)
-        this.x += x
+        let s = 2 * x
+        if (keyStatus == 'down') {
+            this.vx += s
+            this.mx += -s / 3
+            // this.mx = 0
+        }
+        // this.x += x
         // console.log(this.x);
 
         // var animationNames = {
