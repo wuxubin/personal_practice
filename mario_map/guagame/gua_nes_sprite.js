@@ -1,6 +1,8 @@
 class GuaNexSprite {
-    constructor(game) {
+    constructor(game, map) {
         this.game = game
+        this.map = map
+        this.tileSize = map.tileSize
         this.tileOffset = 32784
         this.data = window.bytes.slice(this.tileOffset)
         // 为了省事，在这里hard code一套动画
@@ -31,6 +33,7 @@ class GuaNexSprite {
         // 加速和摩擦
         this.vx = 0
         this.mx = 0
+        this.maxSpeed = 10
     }
     // frames() {
     //     return this.animations[this.AnimationName]
@@ -93,9 +96,35 @@ class GuaNexSprite {
         this.vy = -10
         // this.rotation = -45
     }
+    updaGravity() {
+        // 拿到角色在地图中的坐标i j
+        let i = Math.floor(this.x / this.tileSize)
+        let j = Math.floor(this.y / this.tileSize) + 2
+        let onTheGround = this.map.onTheGround(i, j)
+        if (onTheGround && this.vy > 0) {
+            this.vy = 0
+        } else {
+            this.y += this.vy
+            this.vy += this.gy * 0.1
+            let j = Math.floor(this.y / this.tileSize) + 2
+            let onTheGround = this.map.onTheGround(i, j)
+            if (onTheGround) {
+                this.y = (j - 2) * this.tileSize
+            }
+            // let h = 100
+            // if (this.y > h) {
+            //     this.y = h
+            // }
+        }
+
+    }
     update() {
         // 更新x加速和摩擦
         this.vx += this.mx
+        // 限制最大速度
+        if (Math.abs(this.vy) >= this.maxSpeed) {
+            this.vx = parseInt(this.vx)
+        }
         // 说明摩擦力已经把速度降至0以下
         if (this.vx * this.mx > 0) {
             this.vx = 0
@@ -104,12 +133,8 @@ class GuaNexSprite {
             this.x += this.vx
         }
         // 更新受力
-        this.y += this.vy
-        this.vy += this.gy * 0.1
-        let h = 100
-        if (this.y > h) {
-            this.y = h
-        }
+        this.updaGravity()
+
 
         this.frameCount--
         if (this.frameCount == 0) {

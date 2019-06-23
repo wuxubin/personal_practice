@@ -75,6 +75,11 @@
             let [x1, y1] = tilePosition(x, y)
             window.context.fillRect(x1, y1, tileSize, tileSize)
             window.context.drawImage(window.activeTile, x1, y1)
+            // FIXME,暂时这么弄一下
+            let tile = Number(window.activeTile.dataset.id)
+            let mx = x1 / tileSize
+            let my = y1 / tileSize
+            window.map.setTile(mx, my, tile)
         }
         const tilePosition = (x, y) => {
             let tileSize = 32
@@ -93,9 +98,9 @@
             let moving = false
             window.canvas.addEventListener('mousedown', event => {
                 moving = true
-                // let x = event.clientX
-                // let y = event.clientY
-                // drawTileAt(x, y)
+                let x = event.clientX
+                let y = event.clientY
+                drawTileAt(x, y)
             })
             window.canvas.addEventListener('mousemove', event => {
                 if (moving) {
@@ -110,15 +115,39 @@
             })
         }
         const init = () => {
+            window.map = new Map()
             window.activeTile = null
             window.canvas = e('canvas')
             window.context = window.canvas.getContext('2d')
+            window.context.fillStyle = '#5080FF'
+            window.context.fillRect(0, 0, 1000, 1000)
+        }
+        class Map {
+            constructor() {
+                this.height = 15
+                this.width = 20
+                this.tiles = []
+                this.setupTiles()
+            }
+            setupTiles() {
+                let s = this.height * this.width
+                for (let i = 0; i < s; i++) {
+                    this.tiles[i] = 0;
+                }
+            }
+            setTile(i, j, tile) {
+                let index = i * this.height + j
+                this.tiles[index] = tile
+            }
+            // 将数据导出成JSON格式
+            exportJSON() {
+                let s = JSON.stringify(this.tiles)
+                log(s)
+            }
         }
         const _main = () => {
             init()
             bindEvents()
-            window.context.fillStyle = '#5080FF'
-            window.context.fillRect(0, 0, 1000, 1000)
         }
         _main()
     </script>
