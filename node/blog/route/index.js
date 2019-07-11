@@ -7,7 +7,7 @@ var sendHtml = function (path, response) {
     }
     path = 'template/' + path
     fs.readFile(path, options, function (err, data) {
-        console.log(`读取的html文件 ${path} 内容是`, data)
+        // console.log(`读取的html文件 ${path} 内容是`, data)
         response.send(data)
     })
 }
@@ -17,6 +17,8 @@ var index = {
     method: 'get',
     func: function (request, response) {
         var path = 'blog_index.html'
+        console.log(request.cookies);
+        
         sendHtml(path, response)
     }
 }
