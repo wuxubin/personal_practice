@@ -141,7 +141,6 @@ var dglu = function (form) {
     //     author: "gua",
     //     content: "测试内容",
     // }
-    console.log('登录', form)
     var data = JSON.stringify(form)
     var request = {
         method: 'POST',
@@ -150,9 +149,10 @@ var dglu = function (form) {
         contentType: 'application/json',
         callback: function (response) {
             console.log('响应', response)
-            var res = JSON.parse(response)
+            // var res = JSON.parse(response)
         }
     }
+    console.log('登录', request)
     ajax(request)
 }
 

@@ -1,12 +1,12 @@
 const comment = require('../model/comment')
 
-var sendHtml = function(path, response) {
+var sendHtml = function (path, response) {
     var fs = require('fs')
     var options = {
         encoding: 'utf-8'
     }
     path = 'template/' + path
-    fs.readFile(path, options, function(err, data){
+    fs.readFile(path, options, function (err, data) {
         console.log(`读取的html文件 ${path} 内容是`, data)
         response.send(data)
     })
@@ -15,24 +15,13 @@ var sendHtml = function(path, response) {
 var index = {
     path: '/',
     method: 'get',
-    func: function(request, response) {
+    func: function (request, response) {
         var path = 'blog_index.html'
         sendHtml(path, response)
     }
 }
 
 
-var dglu = {
-    path: '/api/blog/dglu',
-    method: 'post',
-    func: function(request, response) {
-        // console.log(response);
-        
-        // var blogs = blog.all()
-        // var r = JSON.stringify(blogs)
-        // response.send(r)
-    }
-}
 
 
 
