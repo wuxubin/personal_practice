@@ -129,10 +129,33 @@ var bindEvents = function () {
             mima: e('#id-input-mm').value,
         }
         // 用这个数据调用 blogNew 来创建一篇新博客
-        console.log('登录',form)
+        dglu(form);
     })
 
 }
+
+
+var dglu = function (form) {
+    // var form = {
+    //     title: "测试标题",
+    //     author: "gua",
+    //     content: "测试内容",
+    // }
+    console.log('登录', form)
+    var data = JSON.stringify(form)
+    var request = {
+        method: 'POST',
+        url: '/api/blog/dglu',
+        data: data,
+        contentType: 'application/json',
+        callback: function (response) {
+            console.log('响应', response)
+            var res = JSON.parse(response)
+        }
+    }
+    ajax(request)
+}
+
 
 var __main = function () {
     // 载入博客列表

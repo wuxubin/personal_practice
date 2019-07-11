@@ -21,6 +21,21 @@ var index = {
     }
 }
 
+
+var dglu = {
+    path: '/api/blog/dglu',
+    method: 'post',
+    func: function(request, response) {
+        // console.log(response);
+        
+        // var blogs = blog.all()
+        // var r = JSON.stringify(blogs)
+        // response.send(r)
+    }
+}
+
+
+
 var routes = [
     index,
 ]
