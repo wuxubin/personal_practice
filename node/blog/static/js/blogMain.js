@@ -1,4 +1,4 @@
-var ajax = function(request) {
+var ajax = function (request) {
     /*
     request 是一个 object, 有如下属性
         method, 请求的方法, string
@@ -13,8 +13,8 @@ var ajax = function(request) {
     if (request.contentType !== undefined) {
         r.setRequestHeader('Content-Type', request.contentType)
     }
-    r.onreadystatechange = function(event) {
-        if(r.readyState === 4) {
+    r.onreadystatechange = function (event) {
+        if (r.readyState === 4) {
             request.callback(r.response)
         }
     }
@@ -25,7 +25,7 @@ var ajax = function(request) {
     }
 }
 
-var blogTemplate = function(blog) {
+var blogTemplate = function (blog) {
     var id = blog.id
     var title = blog.title
     var author = blog.author
@@ -54,7 +54,7 @@ var blogTemplate = function(blog) {
     return t
 }
 
-var insertBlogAll = function(blogs) {
+var insertBlogAll = function (blogs) {
     var html = ''
     for (var i = 0; i < blogs.length; i++) {
         var b = blogs[i]
@@ -66,12 +66,12 @@ var insertBlogAll = function(blogs) {
     div.innerHTML = html
 }
 
-var blogAll = function() {
+var blogAll = function () {
     var request = {
         method: 'GET',
         url: '/api/blog/all',
         contentType: 'application/json',
-        callback: function(response) {
+        callback: function (response) {
             // 不考虑错误情况(断网/服务器返回错误等等)
             console.log('响应', response)
             var blogs = JSON.parse(response)
@@ -82,7 +82,7 @@ var blogAll = function() {
     ajax(request)
 }
 
-var blogNew = function(form) {
+var blogNew = function (form) {
     // var form = {
     //     title: "测试标题",
     //     author: "gua",
@@ -94,7 +94,7 @@ var blogNew = function(form) {
         url: '/api/blog/add',
         data: data,
         contentType: 'application/json',
-        callback: function(response) {
+        callback: function (response) {
             console.log('响应', response)
             var res = JSON.parse(response)
         }
@@ -102,14 +102,14 @@ var blogNew = function(form) {
     ajax(request)
 }
 
-var e = function(selector) {
+var e = function (selector) {
     return document.querySelector(selector)
 }
 
-var bindEvents = function() {
+var bindEvents = function () {
     // 绑定发表新博客事件
     var button = e('#id-button-submit')
-    button.addEventListener('click', function(event){
+    button.addEventListener('click', function (event) {
         console.log('click new')
         // 得到用户填写的数据
         var form = {
@@ -120,9 +120,21 @@ var bindEvents = function() {
         // 用这个数据调用 blogNew 来创建一篇新博客
         blogNew(form)
     })
+    var bb = e('#id-button-dglu')
+    bb.addEventListener('click', function (event) {
+        console.log('登录')
+        // 得到用户填写的数据
+        var form = {
+            vhhc: e('#id-input-vhhc').value,
+            mima: e('#id-input-mm').value,
+        }
+        // 用这个数据调用 blogNew 来创建一篇新博客
+        console.log('登录',form)
+    })
+
 }
 
-var __main = function() {
+var __main = function () {
     // 载入博客列表
     blogAll()
     // 绑定事件
