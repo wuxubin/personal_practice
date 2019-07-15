@@ -132,8 +132,44 @@ var bindEvents = function () {
         dglu(form);
     })
 
+
+    var ff = e('#id-file');
+    ff.addEventListener('change', function (event) {
+        var target = event.target;
+        var file = (target.files[0]);
+        var formData = new FormData()
+
+
+        console.log(file.name, file);
+        formData.append('file', file)
+        formData.append("Id", '2323');
+        console.log('fordata', formData);
+
+        submitfile(formData);
+    })
+
 }
 
+var submitfile = function (file) {
+    // var form = {
+    //     title: "测试标题",
+    //     author: "gua",
+    //     content: "测试内容",
+    // }
+    var request = {
+        method: 'POST',
+        url: '/api/blog/file',
+        data: file,
+        contentType: 'application/x-www-form-urlencoded',
+        // contentType: 'application/json',
+        callback: function (response) {
+            console.log('响应', response)
+            // var res = JSON.parse(response)
+        }
+    }
+    console.log('上传文件', request)
+    ajax(request)
+}
 
 var dglu = function (form) {
     // var form = {
@@ -152,14 +188,13 @@ var dglu = function (form) {
             // var res = JSON.parse(response)
         }
     }
-    console.log('登录', request)
     ajax(request)
 }
 
 
 var __main = function () {
     // 载入博客列表
-    blogAll()
+    // blogAll()
     // 绑定事件
     bindEvents()
 }

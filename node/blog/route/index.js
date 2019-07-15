@@ -17,7 +17,6 @@ var index = {
     method: 'get',
     func: function (request, response) {
         var path = 'blog_index.html'
-        console.log(request.cookies);
         
         sendHtml(path, response)
     }

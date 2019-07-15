@@ -5,6 +5,8 @@ var all = {
     path: '/api/blog/all',
     method: 'get',
     func: function (request, response) {
+        console.log('all');
+        
         var blogs = blog.all()
         var r = JSON.stringify(blogs)
         response.send(r)
@@ -35,14 +37,16 @@ var dglu = {
     path: '/api/blog/dglu',
     method: 'post',
     func: function (request, response) {
-        console.log('request', request.body, request.cookies);
-
-        // console.log(response);
-
-        // var blogs = blog.all()
-        // var r = JSON.stringify(blogs)
-        // response.cookie('name', 'wxb')
-        response.send('登录成功')
+        console.log('request', request.body);
+        response.send('r')
+    }
+}
+var file = {
+    path: '/api/blog/file',
+    method: 'post',
+    func: function (request, response) {
+        console.log('request', request.body);
+        response.send('file')
     }
 }
 
@@ -51,6 +55,7 @@ var routes = [
     all,
     add,
     dglu,
+    file,
 ]
 
 module.exports.routes = routes
