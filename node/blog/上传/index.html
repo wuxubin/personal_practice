@@ -52,7 +52,7 @@
 
             var oReq = new XMLHttpRequest();
 
-            oReq.open("POST", "/api/blog/file");
+            oReq.open("POST", "/formupload");
             // 文件上传过程的回调
             oReq.upload.onprogress = function (e) {
                 console.log((e.loaded / e.total) * 100 + '%')
