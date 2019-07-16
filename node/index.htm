@@ -134,8 +134,8 @@
                 method: 'POST',
                 url: '/process_post',
                 data: convertModelToFormData(form),
-                contentType: 'application/x-www-form-urlencoded',
-                // contentType: 'multipart/form-data',
+                // contentType: 'application/x-www-form-urlencoded',
+                contentType: 'multipart/form-data',
                 callback: function (response) {
                     console.log('响应', response)
                     // var res = JSON.parse(response)
