@@ -29,7 +29,7 @@
 <body>
         First Name: <input id="firstname" type="text" name="first_name"> <br>
 
-        <inputtype="file" name="image" size="50" />
+        <input id="id-file" type="file" name="image" size="50" />
         Last Name: <input id="lastname"  type="text" name="last_name">
         <input type="submit" value="Submit">
     <!-- </form> -->
@@ -124,6 +124,7 @@
             var form = {
             title: e('#firstname').value,
             author: e('#lastname').value,
+            file:e('#id-file').files[0]
         }
             // var formData = new FormData()
             // formData.append('firstname', e('#firstname').value)

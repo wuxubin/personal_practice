@@ -56,7 +56,7 @@ app.post('/process_post',  multipartMiddleware,function (req, res) {
    //     "first_name":req.body.first_name,
    //     "last_name":req.body.last_name
    // };
-   console.log(req.files);
+   console.log(req.body,req.files);
    // res.end(JSON.stringify(response));
 })
  
