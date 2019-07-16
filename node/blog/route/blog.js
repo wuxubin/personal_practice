@@ -45,8 +45,18 @@ var file = {
     path: '/api/blog/file',
     method: 'post',
     func: function (request, response) {
-        console.log('request', request.body);
-        response.send('file')
+        // console.log('request', request.body);
+        // response.send('file')
+        console.log(request.files,request.body);  // 上传的文件信息
+
+
+        // let form = new multiparty.Form();
+        // form.parse(request, function(err,fields,file){
+        //   console.log(fields);
+        //   response.send('数据已接收');
+        // });
+
+
     }
 }
 

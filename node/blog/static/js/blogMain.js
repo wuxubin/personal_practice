@@ -142,8 +142,8 @@ var bindEvents = function () {
 
         console.log(file.name, file);
         formData.append('file', file)
-        formData.append("Id", '2323');
-        console.log('fordata', formData);
+        // formData.append("Id", '2323');
+        // console.log('fordata', formData);
 
         submitfile(formData);
     })
@@ -161,7 +161,7 @@ var submitfile = function (file) {
         url: '/api/blog/file',
         data: file,
         contentType: 'application/x-www-form-urlencoded',
-        // contentType: 'application/json',
+        // contentType: 'multipart/form-data',
         callback: function (response) {
             console.log('响应', response)
             // var res = JSON.parse(response)

@@ -1,80 +1,56 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <style>
-        .progressBar {
-            width: 150px;
-            height: 15px;
-            border: 1px solid red;
-            /*display: none;*/
-            border-radius: 5px;
-        }
-
-        .bar {
-            width: 0;
-            height: 100%;
-            background: #08d09a;
-            border-radius: 5px;
-            line-height: 0;
-            margin: 0;
-        }
-    </style>
+    <meta charset="utf-8">
+    <title>博客首页</title>
+    <link rel="stylesheet" href="css/blog.css">
 </head>
 
 <body>
-    <button id="submit">提交</button>
-    <input type="file" name="file" id="fileInputElement" />
-    <div class="progressBar" style="display: none;">
-        <p class="bar"></p>
+    <div id='id-input-account'>
+        <label>
+            账号
+            <input id='id-input-vhhc' type="text" value="">
+        </label>
+        <label>
+            密码
+            <input id='id-input-mm' type="text" value="">
+        </label>
+        <button id='id-button-dglu'>登录</button>
     </div>
-    <script>
-        var btn = document.getElementById('submit');
-        var fileInputElement = document.getElementById('fileInputElement');
-        var bar = document.getElementsByClassName('bar')[0];
-        var progressBar = document.getElementsByClassName('progressBar')[0];
+    <input type="file" id="id-file">
+    <div style="display: none">
 
-        btn.onclick = function () {
-            progressBar.style.display = 'block';
-            var oMyForm = new FormData();
-            oMyForm.append("username", "Groucho");
-            oMyForm.append("accountnum", 123456);
-            // 数字123456被立即转换成字符串"123456"
+        <h1>你好 gua</h1>
+        <img src=images/doge.gif> <div class="blog-new">
+        <label>
+            博文标题
+            <input id='id-input-title' type="text" value="">
+        </label>
+        <br>
+        <label>
+            博文作者
+            <input id='id-input-author' type="text" value="">
+        </label>
+        <br>
+        <label>
+            博文内容
+            <textarea id='id-input-content' type="text" value=""></textarea>
+        </label>
+        <br>
+        <label>
+            主人密码
+            <input id='id-input-mima' type="text" value="">
+        </label>
+        <br>
+        <button id='id-button-submit'>发表新博文</button>
+    </div>
+    <div class="gua-blogs">
+    </div>
+    </div>
 
-            // fileInputElement中已经包含了用户所选择的文件
-            oMyForm.append("userfile", fileInputElement.files[0]);
-
-            var oFileBody = '<a id="a"><b id="b">hey!</b></a>'; // Blob对象包含的文件内容
-            var oBlob = new Blob([oFileBody], { type: "text/xml" });
-
-
-            var oReq = new XMLHttpRequest();
-
-            oReq.open("POST", "/api/blog/file");
-            // 文件上传过程的回调
-            oReq.upload.onprogress = function (e) {
-                console.log((e.loaded / e.total) * 100 + '%')
-                bar.style.width = (e.loaded / e.total) * 100 + '%';
-            }
-
-            /**
-             *   e.loaded 文件已经上传了的大小
-             *   e.total  文件总大小
-              e.loaded/e.total)*100+'%'  转化成比例；
-             */
-            // 文件上传完毕的回调
-            oReq.upload.onloadend = function (e) {
-                console.log('接收完成' + e.loaded + '/' + e.total);
-                setTimeout(function () {
-                    progressBar.style.display = 'none';
-                    bar.style.width = 0;
-                }, 1000)
-            }
-            oReq.send(oMyForm);
-        }
-    </script>
+    <script src="js/blogMain.js"></script>
 </body>
 
 </html>
