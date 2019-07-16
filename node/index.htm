@@ -21,16 +21,21 @@
 
 </html> -->
 
+
+
+
 <html>
 
 <body>
-    <form action="http://127.0.0.1:8081/process_post" method="POST">
         First Name: <input id="firstname" type="text" name="first_name"> <br>
 
         <inputtype="file" name="image" size="50" />
-        Last Name: <input type="text" name="last_name">
-        <input id="lastname"  type="submit" value="Submit">
-    </form>
+        Last Name: <input id="lastname"  type="text" name="last_name">
+        <input type="submit" value="Submit">
+    <!-- </form> -->
+
+    <hr>
+    <button >222</button>
     <button id="id-button">1111</button>
 
 
@@ -96,9 +101,9 @@
             */
             var r = new XMLHttpRequest()
             r.open(request.method, request.url, true)
-            if (request.contentType !== undefined) {
-                r.setRequestHeader('Content-Type', request.contentType)
-            }
+            // if (request.contentType !== undefined) {
+            //     r.setRequestHeader('Content-Type', request.contentType)
+            // }
             r.onreadystatechange = function (event) {
                 if (r.readyState === 4) {
                     request.callback(r.response)
@@ -135,6 +140,8 @@
                     // var res = JSON.parse(response)
                 }
             }
+            console.log(request.data.get('title'));
+            // return
             ajax(request)
 
 
@@ -142,3 +149,83 @@
 </body>
 
 </html>
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .progressBar{
+            width: 150px;
+            height: 15px;
+            border: 1px solid red;
+            /*display: none;*/
+            border-radius: 5px;
+        }
+        .bar {
+            width: 0;
+            height: 100%;
+            background: #08d09a;
+            border-radius: 5px;
+            line-height: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<button id="submit">提交</button>
+<input type="file" name="file" id="fileInputElement"/>
+<div class="progressBar" style="display: none;">
+    <p class="bar"></p>
+</div>
+<script>
+    var btn = document.getElementById('submit');
+    var fileInputElement = document.getElementById('fileInputElement');
+    var bar = document.getElementsByClassName('bar')[0];
+    var progressBar = document.getElementsByClassName('progressBar')[0];
+
+    btn.onclick =function(){
+        progressBar.style.display = 'block';
+        var oMyForm = new FormData();
+        oMyForm.append("username", "Groucho");
+        oMyForm.append("accountnum", 123456); 
+        // 数字123456被立即转换成字符串"123456"
+
+        // fileInputElement中已经包含了用户所选择的文件
+        oMyForm.append("userfile", fileInputElement.files[0]);
+
+        var oFileBody = '<a id="a"><b id="b">hey!</b></a>'; // Blob对象包含的文件内容
+        var oBlob = new Blob([oFileBody], { type: "text/xml"});
+
+
+        var oReq = new XMLHttpRequest();
+
+        oReq.open("POST", "/process_post");
+        // 文件上传过程的回调
+        oReq.upload.onprogress = function(e) {
+            console.log((e.loaded/e.total)*100+'%')
+            bar.style.width = (e.loaded/e.total)*100+'%';
+        }
+
+        /**
+         *   e.loaded 文件已经上传了的大小
+         *   e.total  文件总大小
+          e.loaded/e.total)*100+'%'  转化成比例；
+         */
+        // 文件上传完毕的回调
+        oReq.upload.onloadend = function(e) {
+            console.log('接收完成'+e.loaded+'/'+e.total);
+            setTimeout(function(){
+                progressBar.style.display = 'none';
+                bar.style.width = 0;
+            },1000)
+        }
+        oReq.send(oMyForm);
+    }
+</script>
+</body>
+</html> 
+
