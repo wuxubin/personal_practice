@@ -19,5 +19,18 @@
     "navigationBarTitleText": "炼瓜",
     "navigationBarTextStyle": "black"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/openapi/openapi",
+        "text": "关于"
+      }
+    ]
+  }
 }
