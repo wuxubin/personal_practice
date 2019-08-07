@@ -1,0 +1,20 @@
+<!-- index.wxml -->
+<view class="container">
+  <!-- 用户 openid -->
+  <view class="userinfo">
+   
+      <!-- <div>
+      <input v-model="inputValue"/>
+      <button @click="handleSubmit">提交</button>
+    </div>
+    <ul>
+      <li wx:for="(item,index) of list" :key="index">
+        {{item}}
+      </li>
+    </ul>
+  </div> -->
+
+  </view>
+  <!-- 上传图片 -->
+  
+</view>
