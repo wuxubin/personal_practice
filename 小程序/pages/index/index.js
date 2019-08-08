@@ -13,45 +13,7 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
-        console.log('indexload');
-        
-        // console.log("A2:首页-监听页面加载-onLoad-1");
-        /* 思考一下场景：
-         *     我们需要从网上请求过来一些数据，显示在我们小程序上。
-         *     请问：在小程序如此多的生命周期函数中，在哪里请求数据比较合适。
-         */
-        // JQ AJAX
-        // $.ajax({
-        //     url:"",
-        //     success:function(){
-
-        //     }
-        // })
-        // console.log("window",window);
-        // console.log("document", document);
-        // console.log("wx", wx);
-        // wx.request({
-        //     // 请求地址
-        //     url: "https://locally.uieee.com/slides",
-        //     // 请求的参数
-        //     // data: {},
-        //     // 设置请求的 header
-        //     header: {},
-        //     // 请求方式
-        //     method: "GET",
-        //     // 数据类型
-        //     dataType: "json",
-        //     // 成功请求执行的回调函数
-        //     success: function(res) {
-        //         console.log(res);
-        //     },
-        //     // 请求失败执行的回调函数
-        //     fail: function(res) {},
-        //     // 接口调用结束的回调函数（调用成功、失败都会执行）
-        //     complete: function(res) {},
-        // });
-        // console.log(this.data);
+    onLoad: function (options) {       
         /* 1.请求轮播图数据 */ 
         wx.request({
             url: "https://locally.uieee.com/slides",
