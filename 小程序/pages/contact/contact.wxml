@@ -1,0 +1,66 @@
+<view class='divider'></view>
+<view class='cell'>
+    <navigator class='cell-item arrow'>
+        <text>表单输入框</text>
+    </navigator>
+    <view class='cell-item'>
+        <input type='text' placeholder="text"></input>
+    </view>
+    <view class='cell-item'>
+        <input type='text' password placeholder="password"></input>
+    </view>
+    <view class='cell-item'>
+        <input type='number' placeholder="number"></input>
+    </view>
+    <view class='cell-item'>
+        <input type='idcard' placeholder="idcard"></input>
+    </view>
+</view>
+<view class='divider'></view>
+<view class='cell'>
+    <navigator class='cell-item arrow'>
+        <text>其他表单组件</text>
+    </navigator>
+    <view class='cell-item'>
+        <checkbox-group>
+            <checkbox color="#f60" checked></checkbox>
+            <checkbox color="#f60"></checkbox>
+        </checkbox-group>
+    </view>
+    <view class='cell-item'>
+        <radio-group bindchange="radioChangeHandle" data-para="参数">
+            <radio color="#f60" checked value="male"></radio>男
+            <radio color="#f60" value="female"></radio>女
+            <radio color="#f60" disabled></radio>保密
+        </radio-group>
+    </view>
+    <view class='cell-item'>
+        <switch color='#f60' checked/>
+        <switch color='#f60' />
+    </view>
+</view>
+<view class='divider'></view>
+<view class='cell'>
+
+    <view class='cell-item arrow'>
+        <text>微信小程序事件</text>
+    </view>
+
+    <view class='cell-item arrow'>
+        <view class='father' bindtap='fatherTapHandle'>
+            父亲
+            <view class='son' catchtap='sonTapHandle' data-index="1" >儿子</view>
+            <view class='son' catchtap='sonTapHandle' data-index="2" >儿子</view>
+        </view>
+    </view>
+</view>
+<!--wxml-->
+<wxs module="foo">
+    // 这里可以导出一个对象，这个对象可以直接在界面上使用 
+    module.exports = {
+        sum: function(a, b) {
+            return a + b;
+        }
+    };
+</wxs>
+<view> {{ foo.sum(1,2) }} </view>
