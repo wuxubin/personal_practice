@@ -46,7 +46,7 @@ Page({
      */
     onLoad: function (options) {
         // console.log("A3:店铺列表页-----监听页面加载");
-        console.log(options);
+        console.log('options',options);
         // 1.1. 根据首页传递过来的参数，设置导航条标题
         // 更多API学习方式：看文档。
         if (options.title) {
