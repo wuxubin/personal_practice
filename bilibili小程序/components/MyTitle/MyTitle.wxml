@@ -1,8 +1,15 @@
 <!--components/MyTitle/MyTitle.wxml-->
 <view class="my_title">
-     <navigator class="logo">
-         <image class="logo_img" src="../../icons/logo.jpg" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror="" bindload="" />
-           
-     </navigator>
-       
+  <navigator class="logo">
+    <image class="logo_img" style="width:140rpx;height:60rpx;" src="../../icons/logo.jpg" />
+  </navigator>
+  <view class="search_icon">
+    <image style="width:60rpx;height:60rpx;" src="../../icons/search_icon.jpg" />
+  </view>
+  <view class="user_icon">
+    <image style="width:60rpx;height:60rpx;" src="../../icons/user_icon.jpg" />
+  </view>
+  <view class="down_app">
+    APP下载
+  </view>
 </view>
