@@ -1,0 +1,8 @@
+<!--components/MyTitle/MyTitle.wxml-->
+<view class="my_title">
+     <navigator class="logo">
+         <image class="logo_img" src="../../icons/logo.jpg" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror="" bindload="" />
+           
+     </navigator>
+       
+</view>
