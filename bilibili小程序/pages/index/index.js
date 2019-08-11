@@ -5,7 +5,8 @@ Page({
    */
   data: {
     currentIndexNav: 0,
-    navList: []
+    navList: [],
+    swiperList:[],
   },
   activeNav(e) {
     this.setData({
@@ -26,12 +27,28 @@ Page({
       }
     })
   },
+  getSwiperList() {
+    //存储微信小程序 this
+    let that = this;
+    //利用微信小程序内置方法发送请求
+    wx.request({
+      url: 'https://easy-mock.com/mock/5c1dfd98e8bfa547414a5278/bili/swiperList',
+      success(res) {
+        if (res.data.code === 0) {
+          that.setData({
+            swiperList: res.data.data.swiperList
+          })
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
 
     this.getNavList();
+    this.getSwiperList();
   },
 
   /**
