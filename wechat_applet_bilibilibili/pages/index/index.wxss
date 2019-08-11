@@ -1,0 +1,74 @@
+page{
+  color: #666;
+  padding: 10rpx;
+}
+.nav_wrap{}
+
+.nav{
+  white-space: nowrap;/*不换行*/
+}
+.nav_item{
+  display:inline-block;/*一行显示*/
+  font-size: 35rpx;
+  padding: 20rpx 30rpx;
+}
+.nav_item.active{
+  border-bottom: solid 5rpx rgb(236, 77, 125);
+}
+.swiper_image{
+  margin-top: 10rpx; 
+}
+.swiper_image navigator{
+  width: 100%;
+  height: 100%;
+}
+.swiper_image navigator image{
+  width: 100%;
+  height: 100%;
+}
+
+/* 视频列表 */
+.video_warp{
+  display: flex;
+  flex-wrap: wrap;/* 换行显示 */
+  padding: 5rpx;
+  justify-content: space-between;/*项目位于各行之间留有空白的容器内。*/
+}
+.video_item{
+  margin-bottom: 20rpx;
+  width: 50%;
+}
+.video_image{
+   position: relative;
+}
+.video_image image{
+  width: 100%;
+  border-radius: 40rpx;
+  padding: 10rpx;
+}
+.video_image .video_info{
+  color: white;
+  font-size: 30rpx;
+  position: absolute;
+  bottom: 25rpx;
+  left: 0;
+  width:100%;
+  display: flex;
+  justify-content: space-around;/*元素中的各项周围留有空白*/
+}
+.video_info text{
+  float: left;
+}
+/****  标题省略。。。。显示  *****/
+.video_title{
+   padding-left: 10rpx;
+   margin-top: -10rpx;
+   font-size: 30rpx;
+   display: -webkit-box;
+   overflow: hidden;
+   white-space: normal;
+   text-overflow: ellipsis;
+   word-wrap: break-word;
+   -webkit-line-clamp:2;
+   -webkit-box-orient: vertical;
+}

@@ -1,0 +1,96 @@
+/* pages/details/details.wxss */
+page{
+  color: #666;
+  padding: 10rpx;
+}
+.video_info{}
+.video_info video{
+  width: 100%;
+}
+.video_title{
+  font-size: 35rpx;
+  display: flex;
+  justify-content: space-between;/*	项目位于各行之间留有空白的容器内。*/
+}
+.author{
+  color: #000;
+}
+.video_details{
+  font-size: 35rpx;
+  padding: 10rpx 0  10rpx 0;
+}
+.video_details text{
+  padding-right: 15rpx;
+}
+.hr{
+  width: 100%;
+  border-bottom: 0.5px solid rgb(201, 196, 196);
+  margin: 15rpx 0;
+}
+
+/*推荐视频*/
+.others_list{
+}
+.others_item{
+  display: flex;
+  justify-content: space-between;
+}
+.others_image{
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10rpx 0;
+}
+.others_image image{
+  width: 90%;
+  border-radius: 8rpx;
+}
+.others_info{
+  padding: 10rpx 0;
+  width: 60%;
+  font-size: 30rpx;
+  margin-left: 15rpt;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;/*元素中的各项周围留有空白*/
+}
+.title{
+  color: palevioletred;
+  font-size: 32rpx;
+}
+
+/**评论模块**/
+.commentTotalCount{
+  padding: 15rpx 0;
+}
+.commentList{
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;/* 换行显示 */
+  border-bottom: 0.5px solid rgb(201, 196, 196);
+  margin: 15rpx 0;
+}
+.userIconSrc{
+   flex: 2;
+   padding-right: 20rpx;
+}
+.userIconSrc image{
+  width:100%;
+  border-radius: 50%;
+}
+.comment_right{
+  flex: 10;
+}
+/** 平分 伸缩盒子 **/
+.comment_msg{
+  display: flex;
+  justify-content: space-between;
+}
+.username{
+  color: #000;
+  padding-bottom: 10rpx;
+}
+
+

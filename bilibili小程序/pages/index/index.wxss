@@ -1,0 +1,18 @@
+page{
+    color:#666;
+}
+.nav_wrap {}
+
+.nav {
+    white-space: nowrap;
+    padding: 5rpx 0;
+}
+
+.nav_item {
+    padding: 20rpx 45rpx;
+    font-size: 30rpx;
+    display: inline-block;
+}
+.nav_item.active{
+    border-bottom: solid 5rpx rgb(236, 77, 125);
+  }

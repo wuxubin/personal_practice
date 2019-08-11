@@ -1,0 +1,55 @@
+<view>
+<!--公共头部-->
+<MyTitle></MyTitle>
+
+<!--首页导航-->
+  <view class="nav_wrap">
+     <!--滚动组件-->
+     <scroll-view class="nav" scroll-x>
+        <view  bindtap="navOnclick" data-index="{{index}}"
+        class="nav_item {{index===navOnclick_id?'active':''}}" 
+        wx:for="{{navList}}" wx:key="{{index}}">
+          {{item.text}} 
+        </view>
+     </scroll-view>
+  </view>
+<!--首页轮播图-->
+  <view>
+     <swiper autoplay indicator-dots 
+     indicator-color="rgb(236, 77, 125)" circular
+     style=" height: 240rpx;">
+        <swiper-item  class="swiper_image"
+           wx:for="{{swiperList}}" wx:key="{{index}}">
+           <navigator>
+             <image mode="widthFix" src="{{item.imgSrc}}"></image>
+           </navigator>
+             
+        </swiper-item>
+     </swiper>
+  </view>
+
+  <!--视频列表-->
+  <view class="video_warp">
+    <navigator url="../details/details?id={{item.id}}" class="video_item"  wx:for="{{videosList}}" wx:key="{{index}}">
+       <!--视频封面容器-->
+       <view class="video_image">   
+           <!--视频封面-->
+           <image  mode="widthFix"
+             src="{{item.imgSrc}}"></image>
+            <!--视频数据-->
+            <view class="video_info">
+                <view>
+               <text class="fa fa-play-circle-o"> {{item.playCount}}</text>
+                </view>
+                <view>
+                  <text class="fa fa-commenting-o"> {{item.commentCount}}</text>                 </view>
+            </view>
+            
+       </view>
+       <!--视频标题-->
+       <view class="video_title">{{item.desc}}</view>
+    </navigator>
+  </view>
+
+
+</view>
