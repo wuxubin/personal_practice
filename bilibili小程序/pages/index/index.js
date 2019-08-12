@@ -7,6 +7,7 @@ Page({
     currentIndexNav: 0,
     navList: [],
     swiperList:[],
+    videosList:[],
   },
   activeNav(e) {
     this.setData({
@@ -42,6 +43,16 @@ Page({
       }
     })
   },
+  getVideosList() {
+    wx.request({
+      url: 'https://easy-mock.com/mock/5c1dfd98e8bfa547414a5278/bili/videosList',
+      success:(res) =>{
+        this.setData({
+          videosList: res.data.data.videosList
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -49,6 +60,7 @@ Page({
 
     this.getNavList();
     this.getSwiperList();
+    this.getVideosList();
   },
 
   /**

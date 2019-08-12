@@ -15,8 +15,27 @@
         <navigator>
           <image mode="widthFix" src="{{item.imgSrc}}"></image>
         </navigator>
-
       </swiper-item>
     </swiper>
+  </view>
+  
+  <view class="video_warp">
+    <navigator url="../details/details?id={{item.id}}" class="video_item" wx:for="{{videosList}}" wx:key="{{index}}">
+      <!--视频封面容器-->
+      <view class="video_image">
+        <!--视频封面-->
+        <image mode="widthFix" src="{{item.imgSrc}}"></image>
+        <!--视频数据-->
+        <view class="video_info">
+          <view>
+            <text class="fa fa-play-circle-o"> {{item.playCount}}</text>
+          </view>
+          <view>
+            <text class="fa fa-commenting-o"> {{item.commentCount}}</text> </view>
+        </view>
+      </view>
+      <!--视频标题-->
+      <view class="video_title">{{item.desc}}</view>
+    </navigator>
   </view>
 </view>
