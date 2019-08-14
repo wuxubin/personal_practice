@@ -1,27 +1,258 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <title>博客首页</title>
 </head>
 
 <body>
-    <form action="http://127.0.0.1:8081/process_post" method="POST">
-        用户: <input type="text" name="first_name"> <br>
+    <div id='id-input-account'>
+        <label>
+            账号
+            <input id='id-input-vhhc' type="text" value="">
+        </label>
+        <label>
+            密码
+            <input id='id-input-mm' type="text" value="">
+        </label>
+        <button id='id-button-dglu'>登录</button>
+    </div>
+    <input type="file" id="id-file">
+    <div style="display: none">
 
-        密码: <input type="text" name="last_name">
-        <input id="submit" type="submit" value="Submit">
-    </form>
+        <h1>你好 gua</h1>
+        <label>
+            博文标题
+            <input id='id-input-title' type="text" value="">
+        </label>
+        <br>
+        <label>
+            博文作者
+            <input id='id-input-author' type="text" value="">
+        </label>
+        <br>
+        <label>
+            博文内容
+            <textarea id='id-input-content' type="text" value=""></textarea>
+        </label>
+        <br>
+        <label>
+            主人密码
+            <input id='id-input-mima' type="text" value="">
+        </label>
+        <br>
+        <button id='id-button-submit'>发表新博文</button>
+    </div>
+    <div class="gua-blogs">
+    </div>
+    </div>
+
+    <script>
+    var ajax = function (request) {
+    /*
+    request 是一个 object, 有如下属性
+        method, 请求的方法, string
+        url, 请求的路径, string
+        data, 请求发送的数据, 如果是 GET 方法则没这个值, string
+        callback, 响应回调, function
+
+    本题不会就放弃, 本题带了一个用法在下方
+    */
+    var r = new XMLHttpRequest()
+    r.open(request.method, request.url, true)
+    if (request.contentType !== undefined) {
+        r.setRequestHeader('Content-Type', request.contentType)
+    }
+    r.onreadystatechange = function (event) {
+        if (r.readyState === 4) {
+            request.callback(r.response)
+        }
+    }
+    if (request.method === 'GET') {
+        r.send()
+    } else {
+        r.send(request.data)
+    }
+}
+
+var blogTemplate = function (blog) {
+    var id = blog.id
+    var title = blog.title
+    var author = blog.author
+    var d = new Date(blog.created_time * 1000)
+    var time = d.toLocaleString()
+    var t = `
+    <div class="gua-blog-cell">
+        <div class="">
+            <a class="blog-title" href="#" data-id="${id}">
+                ${title}
+            </a>
+        </div>
+        <div class="">
+            <span>${author}</span> @ <time>${time}</time>
+        </div>
+        <div class="blog-comments">
+            <div class='new-comment'>
+                <input class='comment-blog-id' type=hidden value="${id}">
+                <input class='comment-author' value="">
+                <input class='comment-content' value="">
+                <button class='comment-add'>添加评论</button>
+            </div>
+        </div>
+    </div>
+    `
+    return t
+}
+
+var insertBlogAll = function (blogs) {
+    var html = ''
+    for (var i = 0; i < blogs.length; i++) {
+        var b = blogs[i]
+        var t = blogTemplate(b)
+        html += t
+    }
+    // 把数据写入 .gua-blogs 中, 直接用覆盖式写入
+    var div = document.querySelector('.gua-blogs')
+    div.innerHTML = html
+}
+
+var blogAll = function () {
+    var request = {
+        method: 'GET',
+        url: '/api/blog/all',
+        contentType: 'application/json',
+        callback: function (response) {
+            // 不考虑错误情况(断网/服务器返回错误等等)
+            console.log('响应', response)
+            var blogs = JSON.parse(response)
+            window.blogs = blogs
+            insertBlogAll(blogs)
+        }
+    }
+    ajax(request)
+}
+
+var blogNew = function (form) {
+    // var form = {
+    //     title: "测试标题",
+    //     author: "gua",
+    //     content: "测试内容",
+    // }
+    var data = JSON.stringify(form)
+    var request = {
+        method: 'POST',
+        url: '/api/blog/add',
+        data: data,
+        contentType: 'application/json',
+        callback: function (response) {
+            console.log('响应', response)
+            var res = JSON.parse(response)
+        }
+    }
+    ajax(request)
+}
+
+var e = function (selector) {
+    return document.querySelector(selector)
+}
+
+var bindEvents = function () {
+    // 绑定发表新博客事件
+    var button = e('#id-button-submit')
+    button.addEventListener('click', function (event) {
+        console.log('click new')
+        // 得到用户填写的数据
+        var form = {
+            title: e('#id-input-title').value,
+            author: e('#id-input-author').value,
+            content: e('#id-input-content').value,
+        }
+        // 用这个数据调用 blogNew 来创建一篇新博客
+        blogNew(form)
+    })
+    var bb = e('#id-button-dglu')
+    bb.addEventListener('click', function (event) {
+        console.log('登录')
+        // 得到用户填写的数据
+        var form = {
+            vhhc: e('#id-input-vhhc').value,
+            mima: e('#id-input-mm').value,
+        }
+        // 用这个数据调用 blogNew 来创建一篇新博客
+        dglu(form);
+    })
+
+
+    var ff = e('#id-file');
+    ff.addEventListener('change', function (event) {
+        var target = event.target;
+        var file = (target.files[0]);
+        var formData = new FormData()
+
+
+        console.log(file.name, file);
+        formData.append('file', file)
+        // formData.append("Id", '2323');
+        // console.log('fordata', formData);
+
+        submitfile(formData);
+    })
+
+}
+
+var submitfile = function (file) {
+    // var form = {
+    //     title: "测试标题",
+    //     author: "gua",
+    //     content: "测试内容",
+    // }
+    var request = {
+        method: 'POST',
+        url: '/api/blog/file',
+        data: file,
+        contentType: 'application/x-www-form-urlencoded',
+        // contentType: 'multipart/form-data',
+        callback: function (response) {
+            console.log('响应', response)
+            // var res = JSON.parse(response)
+        }
+    }
+    console.log('上传文件', request)
+    ajax(request)
+}
+
+var dglu = function (form) {
+    // var form = {
+    //     title: "测试标题",
+    //     author: "gua",
+    //     content: "测试内容",
+    // }
+    var data = JSON.stringify(form)
+    var request = {
+        method: 'POST',
+        url: '/api/blog/dglu',
+        data: data,
+        contentType: 'application/json',
+        callback: function (response) {
+            console.log('响应', response)
+            // var res = JSON.parse(response)
+        }
+    }
+    ajax(request)
+}
+
+
+var __main = function () {
+    // 载入博客列表
+    // blogAll()
+    // 绑定事件
+    bindEvents()
+}
+
+__main()
+
+    </script>
 </body>
-<script>
-var submit=document.querySelector('#submit');
-submit.addEventListener('click',function(event) {
-    console.log('click');
-    
-})
 
-</script>
 </html>

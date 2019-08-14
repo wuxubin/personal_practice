@@ -3,6 +3,7 @@ var app = express()
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var md5 = require('blueimp-md5')
+var session = require('express-session')
 
 app.use(cookieParser())
 
@@ -10,23 +11,36 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));//解析post请求数据
 // 配置静态文件目录
 // app.use(express.static('static'))
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+}))
+
 
 app.get('/', function (req, res) {
+    console.log(req.session.user)
     res.sendFile(__dirname + "/" + "index.html");
 })
 
-app.post('/process_post', function (req, res) {
+app.post('/api/blog/dglu', function (req, res) {
+    console.log(req.body)
 
-    var b = md5(md5(req.body.first_name))
-    console.log(b, 'bbb')
+
+    var b = md5(md5(req.body.vhhc))
     // 输出 JSON 格式
     var response = {
-        "first_name": req.body.first_name,
-        "last_name": req.body.last_name
+        "vhhc": req.body.vhhc,
+        "mima": req.body.mima
     };
 
-    console.log(response);
-    // res.end(JSON.stringify(response));
+    req.session.user = req.body.vhhc
+    console.log('xxx', req.session.user)
+    res.end(JSON.stringify(response));
+    // res.status(200).json({
+    //     err_code: 0,
+    //     message: 'OK'
+    // })
 })
 
 var server = app.listen(8081, function () {
