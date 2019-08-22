@@ -1,0 +1,8 @@
+<!-- pages/float/float.wxml -->
+<view id="clouds">
+    <view class="cloud x1"></view>
+    <view class="cloud x2"></view>
+    <view class="cloud x3"></view>
+    <view class="cloud x4"></view>
+    <view class="cloud x5"></view>
+</view>

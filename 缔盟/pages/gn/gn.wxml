@@ -1,0 +1,29 @@
+<!-- pages/gn/gn.wxml -->
+<view class="nav-heade woodengine-logo">
+</view>
+<!-- <view class="nav-heade">
+    <image src="../../image/dm-logo-horz-colorful.svg" />
+</view> -->
+<view>
+    <view>
+        <text>订单查询</text>
+    </view>
+    <view>
+        <text>消息查看</text>
+    </view>
+    <view>
+        <text>图标分析</text>
+    </view>
+    <view>
+        <text>订单付款</text>
+    </view>
+    <view>
+        <text>付款审核</text>
+    </view>
+    <view>
+        <text>物流发货</text>
+    </view>
+    <view>
+        <text>我的工厂</text>
+    </view>
+</view>
