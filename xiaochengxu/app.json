@@ -10,6 +10,7 @@
     "pages/verify/verify",
     "pages/delivery/delivery",
     "pages/factory/factory",
+    "pages/slide/slide",
     "pages/ceui/ceui"
   ],
   "window": {
