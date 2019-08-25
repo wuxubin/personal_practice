@@ -1,0 +1,77 @@
+.isRuleShow {
+    display: block;
+  }
+  
+  .isRuleHide {
+    display: none;
+  }
+  .float {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    top: 0;
+    left: 0;
+    /* margin-top:80rpx; */
+  }
+  
+  
+  
+  
+  
+  .iconuse {
+    margin-left: 11rpx;
+  }
+  
+  .iconprice {
+    margin-left: 11rpx;
+  }
+  
+  .animation-element {
+    width: 580rpx;
+    height: 1175rpx;
+     background-color: #ffffff; 
+    border: 1px solid #f3f0f0;
+    position: absolute;
+    right: -572rpx;
+  }
+  
+  
+  
+  .useage {
+    height: 40rpx;
+  }
+  
+  .useage li {
+    width: 177rpx;
+    margin: 12rpx 7rpx;
+    height: 70rpx;
+    line-height: 70rpx;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #f3f0f0;
+    border-radius: 15rpx;
+    font-size: 30rpx;
+  }
+  
+  .buttom{
+    position: fixed;
+    bottom: 0;
+  }
+  .animation-reset{
+  float: left;
+   line-height: 2;
+    width: 260rpx;
+    margin: 15rpx 12rpx;
+    border: 1px solid #f3f0f0;
+    text-align: center;
+  }
+  .animation-button{
+  float: left;
+   line-height: 2;
+    width: 260rpx;
+    margin: 15rpx 12rpx;
+    border: 1px solid #f3f0f0;
+    text-align: center;
+  }

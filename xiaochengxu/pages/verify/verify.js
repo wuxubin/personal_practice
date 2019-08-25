@@ -19,12 +19,12 @@ Page({
 
 
   login() {
-    const data = {
-      password: "WOODENGINE34",
-      rememberme: false,
-      username: "admin"
-    }
-    http.httpPost('account/login/', data)
+    // const data = {
+    //   password: "WOODENGINE34",
+    //   rememberme: false,
+    //   username: "admin"
+    // }
+    // http.httpPost('account/login/', data)
   },
 
 

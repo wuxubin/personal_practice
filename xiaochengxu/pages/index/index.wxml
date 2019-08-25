@@ -1,3 +1,5 @@
+  <navbar page-name="缔盟科技"></navbar>
+
 <view class="page">
     <view class="page__hd">
         <view class="page__title  woodengine-logo center"></view>
