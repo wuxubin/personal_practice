@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "clouds":"../../components/clouds/clouds"
+    "clouds":"/components/clouds/clouds"
   }
 }

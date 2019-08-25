@@ -1,8 +1,0 @@
-<!--index.wxml-->
-<dropdownmenu 
-dropDownMenuTitle='{{dropDownMenuTitle}}' 
-dropDownMenuDistrictData='{{data1}}'  
-dropDownMenuSourceData='{{data2}}' 
- dropDownMenuStyleData='{{data3}}'  
- dropDownMenuFilterData='{{data4}}'
-  bind:selectedItem='selectedItem' />

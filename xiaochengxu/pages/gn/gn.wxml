@@ -1,54 +1,9 @@
-   <view class='menu-po'>
-        <!-- 导航栏 -->
-        <view class='menu'>
-            <view class='menu-list'>
-                <view class='menu-nav' wx:for="{{ msgList }}" wx:for-index="idx" wx:key="key" data-hi="{{ idx }}"            bindtap="menuClick">
-                    <text class='menu-text'>{{ item.name }}</text>
-                    <image class='menu-image' src='/images/san1.png'></image>
-                </view>
-            </view>
-        </view>
-        <!-- 列表栏 -->
-        <view class='menu-if'>
-            <view class="meun-txt" hidden='{{ meunShow[0].isShows ? true : false }}'>
-                <view class='menu-text-list'>
-                    <view class='menu-text-list-left over-auto'>
-                        <text wx:for="{{ areaLise }}" wx:key="name" class='meun-city-txt' bindtap="rowClick"  data-hi="{{ index }}">{{ item.name }}</text>
-                    </view>
-                    <view class='menu-text-list-rig over-auto' hidden='{{ rigShow ? true : fasle }}'>
-                        <view class='menu-city' hidden='{{ rowShow[0].isShows ? true : fasle }}'>
-                            <text wx:for="{{ rowLise.row_weiyang.name }}" wx:key="item" class='meun-city-txt'>{{ item }}</text>
-                        </view>
-                        <view class='menu-city' hidden='{{ rowShow[1].isShows ? true : fasle }}'>
-                            <text wx:for="{{ rowLise.row_beilin.name }}" wx:key="item" class='meun-city-txt'>{{ item }}</text>
-                        </view>
-                        <view class='menu-city' hidden='{{ rowShow[2].isShows ? true : fasle }}'>
-                            <text wx:for="{{ rowLise.row_xincheng.name }}" wx:key="item" class='meun-city-txt'>{{ item }}</text>
-                        </view>
-                        <view class='menu-city' hidden='{{ rowShow[3].isShows ? true : fasle }}'>
-                            <text wx:for="{{ rowLise.row_yanta.name }}" wx:key="item" class='meun-city-txt'>{{ item }}</text>
-                        </view>
-                        <view class='menu-city' hidden='{{ rowShow[4].isShows ? true : fasle }}'>
-                            <text wx:for="{{ rowLise.row_gaoxin.name }}" wx:key="item" class='meun-city-txt'>{{ item }}</text>
-                        </view>
-                        <view class='menu-city' hidden='{{ rowShow[5].isShows ? true : fasle }}'>
-                            <text wx:for="{{ rowLise.row_baqiao.name }}" wx:key="item" class='meun-city-txt'>{{ item }}</text>
-                        </view>
-                        <view class='menu-city' hidden='{{ rowShow[6].isShows ? true : fasle }}'>
-                            <text wx:for="{{ rowLise.row_changan.name }}" wx:key="item" class='meun-city-txt'>{{ item }}</text>
-                        </view>
-                    </view>
-                </view> 
-            </view>
-            <view class="meun-txt over-auto" hidden='{{ meunShow[1].isShows ? true : false }}'>
-                <text wx:for="{{ price }}" wx:key="id" class='meun-city-txt meun-city-txt-price'>{{ item.name }}</text>
-            </view>
-            <view class="meun-txt over-auto" hidden='{{ meunShow[2].isShows ? true : false }}'>
-                <text class='meun-city-txt meun-city-txt-price' wx:for="{{ roomModel }}" wx:key="id">{{ item.name }}</text>
-            </view>
-            <view class="meun-txt" hidden='{{ meunShow[3].isShows ? true : false }}'>
-                <text>更多</text>
-            </view>
-        </view>
-
-    </view> 
+<view class='view-page'>
+  <navbar page-name="你当前页面的名字"></navbar>
+  <view class='page-content'>
+    <!--这里放页面的内容-->
+    <view style="height:300px;background-color:#FF6F43"></view>
+    <view style="height:300px;background-color:#FFD31C"></view>
+    <view style="height:300px;background-color:#09BFEA"></view>
+  </view>
+</view>

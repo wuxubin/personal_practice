@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/gn/index",
+    "pages/gn/gn",
     "pages/welcome/welcome",
     "pages/float/float",
     "pages/orders/orders",
@@ -14,6 +14,7 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
+    "navigationStyle":"custom",
     "navigationBarBackgroundColor": "#c9dbe9",
     "navigationBarTitleText": "WoodEngine",
     "navigationBarTextStyle": "black"
@@ -35,7 +36,7 @@
         "text": "添加"
       },
       {
-        "pagePath": "pages/gn/index",
+        "pagePath": "pages/gn/gn",
         "iconPath": "image/icon-search.png",
         "selectedIconPath": "image/icon-search-select.png",
         "text": "查询"

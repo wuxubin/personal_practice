@@ -8,7 +8,7 @@
 const app = getApp()
 Page({
   data: {
-    dropDownMenuTitle: ['', '订单状态', '订单类型','筛选'],
+    dropDownMenuTitle: ['', '订单状态', '订单类型', '筛选'],
     data1: [
       { id: 0, title: '全部' },
       { id: 1, title: '提交' },
@@ -33,7 +33,7 @@ Page({
     ],
   },
   onLoad: function () {
-
+    console.log('orders')
   },
   /**
 * 生命周期函数--监听页面初次渲染完成
