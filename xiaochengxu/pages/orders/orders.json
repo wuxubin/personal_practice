@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "dropdownmenu": "../components/dropdownmenu/dropdownmenu"
+    "dropdownmenu": "../../components/dropdownmenu/dropdownmenu"
   }
 }

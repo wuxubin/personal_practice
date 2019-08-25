@@ -1,9 +1,8 @@
 /* pages/float/float.wxss */
 
-#clouds {
+.clouds {
   padding: 100rpx 0;
   background: #c9dbe9;
-  /* background: -linear-gradient(top, #c9dbe9 0%, #fff 100%); */
 }
 
 /*Time to finalise the cloud shape*/
