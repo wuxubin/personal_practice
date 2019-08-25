@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/welcome/welcome",
     "pages/index/index",
     "pages/gn/gn",
-    "pages/welcome/welcome",
     "pages/float/float",
     "pages/orders/orders",
     "pages/charts/charts",

@@ -1,6 +1,8 @@
 .clouds {
   padding: 120rpx 0;
-  background: #c9dbe9;
+  /* background: #c9dbe9; */
+  position: fixed;
+  /* z-index: -1; */
 }
 
 .cloud {

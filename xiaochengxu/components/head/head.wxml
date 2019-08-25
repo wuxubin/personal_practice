@@ -1,7 +1,0 @@
-<view class="clouds">
-    <view class="cloud could1"></view>
-    <view class="cloud could2"></view>
-    <view class="cloud could3"></view>
-    <view class="cloud could4"></view>
-    <view class="cloud could5"></view>
-</view>

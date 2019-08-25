@@ -53,7 +53,7 @@ Component({
     //回主页
     _toIndex: function () {
       wx.switchTab({
-        url: '/pages/tabBar/index/index'
+        url: '/pages/index/index'
       })
     },
   }
