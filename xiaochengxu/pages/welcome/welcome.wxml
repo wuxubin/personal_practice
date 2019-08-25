@@ -1,0 +1,5 @@
+<!-- pages/welcome/welcome.wxml -->
+<clouds></clouds>
+<view class="container mainground">
+    <image src="../../image/dm-logo-horz-colorful.svg" />
+</view>

@@ -1,0 +1,15 @@
+<!--index.wxml-->
+<dropdownmenu 
+dropDownMenuTitle='{{dropDownMenuTitle}}' 
+dropDownMenuSourceData='{{data1}}' 
+ dropDownMenuStyleData='{{data2}}'  
+  dropDownMenuFilterData='{{data3}}'
+
+  bind:selectedItem='selectedItem' />
+<!-- <dropdownmenu 
+dropDownMenuTitle='{{dropDownMenuTitle}}' 
+dropDownMenuDistrictData='{{data1}}'  
+dropDownMenuSourceData='{{data2}}' 
+ dropDownMenuStyleData='{{data3}}'  
+ dropDownMenuFilterData='{{data4}}'
+  bind:selectedItem='selectedItem' /> -->

@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/gn/index",
+    "pages/welcome/welcome",
+    "pages/float/float",
+    "pages/orders/orders",
+    "pages/charts/charts",
+    "pages/payment/payment",
+    "pages/verify/verify",
+    "pages/delivery/delivery",
+    "pages/factory/factory",
+    "pages/ceui/ceui"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#c9dbe9",
+    "navigationBarTitleText": "WoodEngine",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#919191",
+    "selectedColor": "#03a9f4",
+    "list": [
+      {
+        "pagePath": "pages/welcome/welcome",
+        "iconPath": "image/icon-index.png",
+        "selectedIconPath": "image/icon-index-select.png",
+        "text": "主页"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "image/icon-add.png",
+        "selectedIconPath": "image/icon-add-select.png",
+        "text": "添加"
+      },
+      {
+        "pagePath": "pages/gn/index",
+        "iconPath": "image/icon-search.png",
+        "selectedIconPath": "image/icon-search-select.png",
+        "text": "查询"
+      },
+      {
+        "pagePath": "pages/verify/verify",
+        "iconPath": "image/icon-my.png",
+        "selectedIconPath": "image/icon-my-select.png",
+        "text": "我的"
+      }
+    ],
+    "position": "bottom"
+  },
+  "sitemapLocation": "sitemap.json"
+}

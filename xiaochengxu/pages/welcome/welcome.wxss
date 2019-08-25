@@ -1,0 +1,6 @@
+/* pages/welcome/welcome.wxss */
+.mainground {
+  height: 100%;
+  width:100%;
+  background: #c9dbe9;
+}
