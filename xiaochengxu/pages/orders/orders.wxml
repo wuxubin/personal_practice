@@ -1,4 +1,4 @@
-<!--index.wxml-->
+<navbar page-name="缔盟科技"></navbar>
 <dropdownmenu 
 dropDownMenuTitle='{{dropDownMenuTitle}}' 
 dropDownMenuSourceData='{{data1}}' 
