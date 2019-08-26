@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "dropdownmenu": "/components/dropdownmenu/dropdownmenu",
+    "navbar": "/components/navbar/index"
+  }
+}

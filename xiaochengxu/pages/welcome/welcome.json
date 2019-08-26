@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "clouds":"/components/clouds/clouds"
+  }
+}

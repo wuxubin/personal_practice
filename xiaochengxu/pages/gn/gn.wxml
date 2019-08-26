@@ -1,0 +1,62 @@
+  <navbar page-name="你当前页面的名字"></navbar>
+
+<view class="">
+  <view class="animation-button" bindtap="translate">筛选</view>
+  <view class="float {{isRuleTrue?'isRuleShow':'isRuleHide'}} ">
+    <view class="animation-element" animation="{{animation}}">
+      <view class='use'>
+        <view class='iconuse'>用途</view>
+
+        <ul class="useage">
+          <li bindtap="tryDriver" style="background:{{background}};">全部</li>
+          <li>经济实惠型</li>
+          <li>家用学习型</li>
+        </ul>
+        <ul class="useage">
+          <li bindtap="tryDriver" style="background:{{background}};">豪华发烧型</li>
+          <li>疯狂游戏型</li>
+          <li>商务办公型</li>
+        </ul>
+        <ul class="useage">
+          <li>经济实惠型</li>
+          <li>家用学习型</li>
+        </ul>
+      </view>
+
+      <!-- 价格 -->
+      <view class='use'>
+        <view class='iconprice'>价格</view>
+
+        <ul class="useage">
+          <li bindtap="tryDriver" style="background:{{background}};">全部</li>
+          <li>经济实惠型</li>
+          <li>家用学习型</li>
+        </ul>
+
+
+        <ul class="useage">
+          <li bindtap="tryDriver" style="background:{{background}};">豪华发烧型</li>
+          <li>疯狂游戏型</li>
+          <li>商务办公型</li>
+        </ul>
+
+
+        <ul class="useage">
+
+          <li>经济实惠型</li>
+          <li>家用学习型</li>
+        </ul>
+
+      </view>
+
+      <view class='buttom'>
+      <view class="animation-reset" >重置</view>
+      <view class="animation-button" bindtap="success">完成</view>
+      </view>
+
+
+
+    </view>
+  </view>
+ 
+</view>

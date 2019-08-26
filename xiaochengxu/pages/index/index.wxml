@@ -1,0 +1,61 @@
+<clouds></clouds>
+  <navbar page-name="缔盟科技"></navbar>
+
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title  woodengine-logo center"></view>
+        <view class="page__desc center">你好，<image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>{{userInfo.nickName}}</view>
+    </view>
+    <view class="page__bd">
+        <view class="weui-grids">
+            <block>
+                <navigator url="/pages/orders/orders" class="weui-grid" hover-class="weui-grid_active">
+                    <view class="weui-badge dm-top-right">8</view>
+                    <image class="weui-grid__icon" src="/image/homepage/search.svg" />
+                    <view class="weui-grid__label">订单查询</view>
+                </navigator>
+            </block>
+            <block>
+                <navigator url="/pages/charts/charts" class="weui-grid" hover-class="weui-grid_active">
+                    <view class="weui-badge weui-badge_dot dm-top-right"></view>
+                    <image class="weui-grid__icon" src="/image/homepage/chart-bar.svg" />
+                    <view class="weui-grid__label">图表分析</view>
+                </navigator>
+            </block>
+            <block>
+                <navigator url="/pages/payment/payment" class="weui-grid" hover-class="weui-grid_active">
+                    <view class="weui-badge dm-top-right">8</view>
+                    <image class="weui-grid__icon dm-color-green" src="/image/homepage/money-bill.svg" />
+                    <view class="weui-grid__label">订单付款</view>
+                </navigator>
+            </block>
+            <block>
+                <navigator url="/pages/verify/verify" class="weui-grid" hover-class="weui-grid_active">
+                    <view class="weui-badge dm-top-right">8</view>
+                    <image class="weui-grid__icon" src="/image/homepage/calendar-check.svg" />
+                    <view class="weui-grid__label">付款审核</view>
+                </navigator>
+            </block>
+            <block>
+                <navigator url="/pages/delivery/delivery" class="weui-grid" hover-class="weui-grid_active">
+                    <view class="weui-badge dm-top-right">8</view>
+                    <image class="weui-grid__icon" src="/image/homepage/truck.svg" />
+                    <view class="weui-grid__label">物流发货</view>
+                </navigator>
+            </block>
+            <block>
+                <navigator url="/pages/factory/factory" class="weui-grid" hover-class="weui-grid_active">
+                    <view class="weui-badge dm-top-right">8</view>
+                    <image class="weui-grid__icon" src="/image/homepage/industry.svg" />
+                    <view class="weui-grid__label">我的工厂</view>
+                </navigator>
+            </block>
+        </view>
+    </view>
+</view>
+<view class="weui-footer dm-bottom">
+    <view class="weui-footer__links">
+        <text class="weui-footer__link">缔盟科技</text>
+    </view>
+    <view class="weui-footer__text">为木工行业提供信息化生产全套解决方案</view>
+</view>
