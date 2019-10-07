@@ -1,3 +1,5 @@
+<view class="ceui">
+
 <view class="nav">
   <view class="nav-child {{district_open? 'active' : ''}}" bindtap="tapDistrictNav" hidden='{{dropDownMenuDistrictData.length > 0 ? false :true}}' data-nav="1">
     <view class="nav-title">{{district_right_select_name.length > 0 ?district_right_select_name : dropDownMenuTitle[0]}}</view>
@@ -57,3 +59,7 @@
     </view>
   </view>
 </view>
+
+</view>
+
+

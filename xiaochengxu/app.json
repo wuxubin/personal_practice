@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/welcome/welcome",
-    "pages/index/index",
-    "pages/gn/gn",
-    "pages/float/float",
     "pages/orders/orders",
+    "pages/gn/gn",
+    "pages/index/index",
+    "pages/welcome/welcome",
+    "pages/float/float",
     "pages/charts/charts",
     "pages/payment/payment",
     "pages/verify/verify",

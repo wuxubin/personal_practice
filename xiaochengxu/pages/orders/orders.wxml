@@ -1,4 +1,5 @@
-<navbar page-name="缔盟科技"></navbar>
+  <navbar page-name="缔盟科技"></navbar>
+
 <dropdownmenu 
 dropDownMenuTitle='{{dropDownMenuTitle}}' 
 dropDownMenuSourceData='{{data1}}' 
@@ -6,6 +7,7 @@ dropDownMenuSourceData='{{data1}}'
   dropDownMenuFilterData='{{data3}}'
 
   bind:selectedItem='selectedItem' />
+  <text>4444</text>
 <!-- <dropdownmenu 
 dropDownMenuTitle='{{dropDownMenuTitle}}' 
 dropDownMenuDistrictData='{{data1}}'  
